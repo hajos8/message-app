@@ -4,8 +4,7 @@ import { Link } from "react-router-dom"
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import '../index.css'
-import './LoginPage.css'
+import '../styles/AuthPages.css'
 
 export default function LoginPage() {
     const [formValues, setFormValues] = useState({
