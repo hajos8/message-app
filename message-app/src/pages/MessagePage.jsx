@@ -25,8 +25,6 @@ const messengerData = { // Dummy adatstruktúra az üzenetekhez
     conversations: [
         {
             id: "conv-1",
-            participants: [1, 2],
-            lastMessageId: "msg-3",
             messages: [
                 {
                     id: "msg-1",
@@ -51,8 +49,6 @@ const messengerData = { // Dummy adatstruktúra az üzenetekhez
 
         {
             id: "conv-2",
-            participants: [1, 3],
-            lastMessageId: "msg-6",
             messages: [
                 {
                     id: "msg-4",
@@ -86,7 +82,7 @@ export default function MessagePage() {
                     <ContactsComponent data={messengerData.users} />
                 </div>
                 <div style={{ width: "70%" }}>
-                    <MessageBoxComponent data={messengerData.conversations} />
+                    <MessageBoxComponent currentUserId={messengerData.currentUserId} data={messengerData.conversations} />
                 </div>
             </div>
         </Fragment>
