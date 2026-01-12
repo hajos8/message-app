@@ -1,3 +1,5 @@
+import "../styles/Messages.css";
+
 export default function MessageBoxComponent({ data, currentUserId }) {
     return (
         <div className="message-box">
