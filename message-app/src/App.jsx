@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom'
 
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
-import ContactsPage from './pages/ContactsPage.jsx'
 import MessagePage from './pages/MessagePage.jsx'
 import SearchPage from './pages/SearchPage.jsx'
 
@@ -14,7 +13,11 @@ function RequireAuth({ loggedIn, redirectTo }) {
 }
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true); // Set to true for testing purposes
+
+  //TODO
+  //POST user id for getting messages
+  //
 
   return (
     <Routes>
@@ -22,12 +25,11 @@ function App() {
       <Route path="/register" element={<RegisterPage />} />
 
       <Route element={<RequireAuth loggedIn={loggedIn} redirectTo="/login" />}>
-        <Route path="/contacts" element={<ContactsPage />} />
         <Route path="/messages" element={<MessagePage />} />
         <Route path="/search" element={<SearchPage />} />
       </Route>
 
-      <Route path="*" element={<Navigate to={loggedIn ? "/contacts" : "/login"} replace />} />
+      <Route path="*" element={<Navigate to={loggedIn ? "/messages" : "/login"} replace />} />
     </Routes>
   );
 }
