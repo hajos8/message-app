@@ -75,9 +75,11 @@ const messengerData = { // Dummy adatstruktúra az üzenetekhez
 
 export default function MessagePage() {
     useEffect(() => {
-        fetch("/api/get")
-            .then(response => response.json())
-            .then(data => {
+        fetch("/.netlify/functions/get")
+            .then(async response => {
+                console.log(response);
+                const data = await response.json()
+
                 console.log("Fetched data:", data);
             })
             .catch(error => {

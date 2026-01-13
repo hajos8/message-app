@@ -13,7 +13,7 @@ function RequireAuth({ loggedIn, redirectTo }) {
 }
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true); // Set to true for testing purposes
+  const [loggedIn, setLoggedIn] = useState(false); // Set to true for testing purposes
 
   //TODO
   //POST user id for getting messages
