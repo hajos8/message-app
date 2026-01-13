@@ -32,7 +32,7 @@ export default function RegisterPage() {
     }
 
     return (
-        <Container>
+        <Container className="container">
             <Typography
                 variant="h5"
                 align="center"

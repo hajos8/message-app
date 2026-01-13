@@ -27,7 +27,7 @@ export default function LoginPage() {
 
     return (
         <>
-            <Container>
+            <Container className="container">
                 <Typography
                     variant="h5"
                     align="center"
