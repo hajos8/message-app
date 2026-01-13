@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 import NavBarComponent from "../components/NavBarComponent";
 import ContactsComponent from "../components/ContactsComponent";
@@ -74,8 +74,19 @@ const messengerData = { // Dummy adatstruktúra az üzenetekhez
 };
 
 export default function MessagePage() {
+    useEffect(() => {
+        fetch("/api/get")
+            .then(response => response.json())
+            .then(data => {
+                console.log("Fetched data:", data);
+            })
+            .catch(error => {
+                console.log("Error fetching data:", error);
+            });
+    }, []);
+
     return (
-        <Fragment style={{ minHeight: "100vh", minWidth: "100vw" }}>
+        <div style={{ minHeight: "100vh", minWidth: "100vw" }}>
             <NavBarComponent />
             <div style={{ display: "flex" }}>
                 <div style={{ width: "30%", borderRight: "1px solid #ccc" }}>
@@ -85,6 +96,6 @@ export default function MessagePage() {
                     <MessageBoxComponent currentUserId={messengerData.currentUserId} data={messengerData.conversations} />
                 </div>
             </div>
-        </Fragment>
+        </div>
     )
 }
