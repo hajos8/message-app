@@ -13,6 +13,8 @@ function RequireAuth({ loggedIn, redirectTo }) {
 }
 
 function App() {
+  const [userId, setUserId] = useState(null);
+  const [username, setUsername] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false); // Set to true for testing purposes
 
   //TODO
@@ -21,7 +23,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage onLogin={() => setLoggedIn(true)} />} />
+      <Route path="/login" element={<LoginPage setUserId={setUserId} setUsername={setUsername} setLoggedIn={setLoggedIn} />} />
       <Route path="/register" element={<RegisterPage />} />
 
       <Route element={<RequireAuth loggedIn={loggedIn} redirectTo="/login" />}>

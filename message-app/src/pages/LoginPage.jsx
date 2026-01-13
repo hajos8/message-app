@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { Box, Paper, TextField, FormControl, Button, Typography, InputLabel, IconButton, InputAdornment, Container } from "@mui/material"
 import { Link } from "react-router-dom"
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -6,7 +7,8 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import '../styles/AuthPages.css'
 
-export default function LoginPage() {
+export default function LoginPage({ setUserId, setUsername, setLoggedIn }) {
+    const navigate = useNavigate();
     const [formValues, setFormValues] = useState({
         email: '',
         password: '',
@@ -23,6 +25,29 @@ export default function LoginPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        console.log("Login form submitted:", formValues);
+        fetch("/.netlify/functions/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formValues)
+        })
+            .then(async res => {
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    throw new Error(errorData.error || "Login failed");
+                }
+                else {
+                    const data = await res.json();
+                    console.log("Login successful:", data);
+
+                    setUserId(data.id);
+                    setUsername(data.name);
+                    setLoggedIn(true);
+
+                    navigate("/messages");
+                }
+            })
     }
 
     return (
