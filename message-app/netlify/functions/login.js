@@ -6,8 +6,6 @@ import bcrypt from 'bcrypt';
 const sql = neon(process.env.DATABASE_URL);
 
 export default async (request, context) => {
-    console.log(context);
-
     if (request.method !== 'POST') {
         return new Response(JSON.stringify({ error: "Method not allowed" }), {
             status: 405,

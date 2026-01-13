@@ -17,9 +17,6 @@ function App() {
   const [username, setUsername] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false); // Set to true for testing purposes
 
-  //TODO
-  //POST user id for getting messages
-  //
 
   return (
     <Routes>
