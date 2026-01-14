@@ -43,9 +43,10 @@ export default function RegisterPage({ setOpenSnackbar, setSnackbarMessage, setL
                 password: formValues.password,
             })
         })
-            .then(res => {
+            .then(async res => {
                 if (!res.ok) {
-                    setSnackbarMessage('Registration failed. Please try again.');
+                    const errData = await res.json();
+                    setSnackbarMessage('Registration failed. ' + (errData.error || 'Please try again.'));
                     setOpenSnackbar(true);
                 }
                 else {
