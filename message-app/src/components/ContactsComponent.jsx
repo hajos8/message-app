@@ -6,9 +6,11 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import { IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 //TODO add avatar image
-export default function ContactsComponent({ data }) {
+export default function ContactsComponent({ data, canBeAdded }) {
     return (
         <List sx={{ width: '100%', maxWidth: 360 }}>
 
@@ -21,6 +23,21 @@ export default function ContactsComponent({ data }) {
                         <ListItemText
                             primary={elem.username}
                         />
+                        {canBeAdded &&
+                            <IconButton
+                                edge="end"
+                                aria-label="add"
+                                sx={{
+                                    color: '#0084ff',
+                                    backgroundColor: 'rgba(0, 132, 255, 0.1)',
+                                    '&:hover': {
+                                        backgroundColor: 'rgba(0, 132, 255, 0.2)',
+                                    }
+                                }}
+                            >
+                                <AddIcon />
+                            </IconButton>
+                        }
                     </ListItem>
                     <Divider variant="inset" component="li" />
                 </Fragment>

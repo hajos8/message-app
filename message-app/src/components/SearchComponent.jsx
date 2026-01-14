@@ -18,6 +18,21 @@ export default function SearchComponent() {
             });
     }, []);
 
+    const handleSearch = () => {
+        fetch('/.netlify/functions/postSearchForUsers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ searchTerm }),
+        })
+            .then(async res => {
+                const data = await res.json();
+                console.log(data);
+                setSearchResults(data);
+            });
+    };
+
     return (
         <Box className="search-container">
             <Box className="search-box">
@@ -34,13 +49,13 @@ export default function SearchComponent() {
                         disableUnderline: true,
                     }}
                 />
-                <IconButton aria-label="search" className="search-button" size="small">
+                <IconButton aria-label="search" className="search-button" size="small" onClick={handleSearch}>
                     <SearchIcon />
                 </IconButton>
             </Box>
 
             <Box className="results-container">
-                <ContactsComponent data={searchResults} />
+                <ContactsComponent data={searchResults} canBeAdded={true} />
             </Box>
         </Box>
     );
