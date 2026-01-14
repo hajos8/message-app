@@ -7,7 +7,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import '../styles/AuthPages.css'
 
-export default function LoginPage({ setUserId, setUsername, setLoggedIn }) {
+export default function LoginPage({ setUserId, setUsername, setLoggedIn, setOpenSnackbar, setSnackbarMessage, setLoading }) {
     const navigate = useNavigate();
     const [formValues, setFormValues] = useState({
         email: '',
@@ -27,6 +27,7 @@ export default function LoginPage({ setUserId, setUsername, setLoggedIn }) {
         e.preventDefault();
 
         console.log("Login form submitted:", formValues);
+        setLoading(true);
         fetch("/.netlify/functions/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -45,9 +46,20 @@ export default function LoginPage({ setUserId, setUsername, setLoggedIn }) {
                     setUsername(data.name);
                     setLoggedIn(true);
 
+                    setSnackbarMessage('Login successful.');
+                    setOpenSnackbar(true);
+
                     navigate("/messages");
                 }
             })
+            .catch(err => {
+                console.error("Login error:", err);
+                setSnackbarMessage(err.message || 'Login failed. Please try again.');
+                setOpenSnackbar(true);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     return (
