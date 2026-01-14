@@ -3,6 +3,7 @@ import { Fragment, useEffect } from "react";
 import NavBarComponent from "../components/NavBarComponent";
 import ContactsComponent from "../components/ContactsComponent";
 import MessageBoxComponent from "../components/MessageBoxComponent";
+import TabComponent from "../components/TabComponent";
 
 const messengerData = { // Dummy adatstruktúra az üzenetekhez
     currentUserId: 1,
@@ -88,11 +89,12 @@ export default function MessagePage() {
     }, []);
 
     return (
-        <div style={{ minHeight: "100vh", minWidth: "100vw" }}>
+        <div style={{ height: "100vh", width: "100vw" }}>
             <NavBarComponent />
             <div style={{ display: "flex" }}>
                 <div style={{ width: "30%", borderRight: "1px solid #ccc" }}>
                     <ContactsComponent data={messengerData.users} />
+                    <TabComponent />
                 </div>
                 <div style={{ width: "70%" }}>
                     <MessageBoxComponent currentUserId={messengerData.currentUserId} data={messengerData.conversations} />
