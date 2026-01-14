@@ -1,11 +1,13 @@
 import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Button, Container, Typography, TextField, InputAdornment, IconButton, FormHelperText } from "@mui/material"
 
 import '../styles/AuthPages.css'
 
-export default function RegisterPage() {
+export default function RegisterPage({ setOpenSnackbar, setSnackbarMessage, setLoading }) {
+    const navigate = useNavigate();
     const [formValues, setFormValues] = useState({
         username: '',
         email: '',
@@ -29,6 +31,36 @@ export default function RegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setLoading(true);
+
+        fetch("/.netlify/functions/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: formValues.username,
+                email: formValues.email,
+                password: formValues.password,
+            })
+        })
+            .then(res => {
+                if (!res.ok) {
+                    setSnackbarMessage('Registration failed. Please try again.');
+                    setOpenSnackbar(true);
+                }
+                else {
+                    setSnackbarMessage('Registration successful. You can now log in.');
+                    setOpenSnackbar(true);
+                    navigate("/login");
+                }
+            })
+            .catch(err => {
+                setSnackbarMessage('Registration failed.Please try again.');
+                setOpenSnackbar(true);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     return (
@@ -150,6 +182,7 @@ export default function RegisterPage() {
                             variant="contained"
                             sx={{
                                 marginTop: '20px',
+                                marginBottom: '20px'
                             }}
                             disabled
                         >
@@ -161,6 +194,7 @@ export default function RegisterPage() {
                             variant="contained"
                             sx={{
                                 marginTop: '20px',
+                                marginBottom: '20px'
                             }}
                             className="buttons"
                         >
@@ -168,6 +202,9 @@ export default function RegisterPage() {
                         </Button>
 
                 }
+                <Typography variant="subtitle1">
+                    Do you have an account? <Link to='/login' className="link">Login here</Link>
+                </Typography>
 
             </form>
         </Container>

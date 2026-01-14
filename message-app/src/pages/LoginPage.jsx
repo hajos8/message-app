@@ -35,8 +35,8 @@ export default function LoginPage({ setUserId, setUsername, setLoggedIn, setOpen
         })
             .then(async res => {
                 if (!res.ok) {
-                    const errorData = await res.json();
-                    throw new Error(errorData.error || "Login failed");
+                    setSnackbarMessage('Login failed. Please try again.');
+                    setOpenSnackbar(true);
                 }
                 else {
                     const data = await res.json();
