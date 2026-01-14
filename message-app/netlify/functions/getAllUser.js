@@ -6,7 +6,7 @@ const sql = neon(process.env.DATABASE_URL);
 
 export default async (request, context) => {
   const users = await sql`
-  SELECT username FROM users
+  SELECT id, username FROM users
   `;
 
   console.log("Fetched users from database:", users);

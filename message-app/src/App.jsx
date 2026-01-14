@@ -19,7 +19,7 @@ function RequireAuth({ loggedIn, redirectTo }) {
 function App() {
   const [userId, setUserId] = useState(null);
   const [username, setUsername] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(true); // Set to true for testing purposes
+  const [loggedIn, setLoggedIn] = useState(false); // Set to true for testing purposes
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -38,7 +38,7 @@ function App() {
         <Route path="/register" element={<RegisterPage setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} setLoading={setLoading} />} />
 
         <Route element={<RequireAuth loggedIn={loggedIn} redirectTo="/login" />}>
-          <Route path="/messages" element={<MessagePage />} />
+          <Route path="/messages" element={<MessagePage userId={userId} username={username} />} />
           <Route path="/search" element={<SearchPage />} />
         </Route>
 

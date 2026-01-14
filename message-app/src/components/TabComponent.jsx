@@ -5,7 +5,7 @@ import { TabPanel, TabContext, TabList } from '@mui/lab';
 import ContactsComponent from "./ContactsComponent";
 import SearchComponent from "./SearchComponent";
 
-export default function TabComponent({ data }) {
+export default function TabComponent({ data, userId }) {
     const [value, setValue] = useState("1");
 
     const handleChange = (event, newValue) => {
@@ -25,7 +25,7 @@ export default function TabComponent({ data }) {
                     <ContactsComponent data={data} />
                 </TabPanel>
                 <TabPanel value="2">
-                    <SearchComponent />
+                    <SearchComponent userId={userId} />
                 </TabPanel>
             </TabContext>
         </Box>

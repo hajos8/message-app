@@ -74,7 +74,7 @@ const messengerData = { // Dummy adatstruktúra az üzenetekhez
     ]
 };
 
-export default function MessagePage() {
+export default function MessagePage({ userId, username }) {
     useEffect(() => {
         fetch("/.netlify/functions/get")
             .then(async response => {
@@ -93,7 +93,7 @@ export default function MessagePage() {
             <NavBarComponent />
             <div style={{ display: "flex" }}>
                 <div style={{ width: "30%", borderRight: "1px solid #ccc" }}>
-                    <TabComponent data={messengerData.users} />
+                    <TabComponent data={messengerData.users} userId={userId} />
                 </div>
                 <div style={{ width: "70%" }}>
                     <MessageBoxComponent currentUserId={messengerData.currentUserId} data={messengerData.conversations} />

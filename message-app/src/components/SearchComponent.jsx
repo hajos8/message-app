@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ContactsComponent from "./ContactsComponent";
 import '../styles/Search.css';
 
-export default function SearchComponent() {
+export default function SearchComponent({ userId }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
@@ -55,7 +55,7 @@ export default function SearchComponent() {
             </Box>
 
             <Box className="results-container">
-                <ContactsComponent data={searchResults} canBeAdded={true} />
+                <ContactsComponent data={searchResults} canBeAdded={true} userId={userId} />
             </Box>
         </Box>
     );
