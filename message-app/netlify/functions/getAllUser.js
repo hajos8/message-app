@@ -1,4 +1,4 @@
-// message-app/netlify/functions/get.js - for testing database connection
+// message-app/netlify/functions/getAllUser.js
 
 import { neon } from '@neondatabase/serverless';
 
@@ -6,7 +6,7 @@ const sql = neon(process.env.DATABASE_URL);
 
 export default async (request, context) => {
   const users = await sql`
-  SELECT * FROM users
+  SELECT username FROM users
   `;
 
   console.log("Fetched users from database:", users);

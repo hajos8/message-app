@@ -1,0 +1,108 @@
+.search-container {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.search-box:focus-within {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+}
+
+.search-input::placeholder {
+    color: #999;
+}
+
+.search-button {
+    color: #1976d2;
+    transition: color 0.2s ease;
+}
+
+.search-button:hover {
+    color: #1565c0;
+}
+
+.results-container {
+    margin-top: 16px;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .search-container {
+        background-color: #18191a;
+        border: 1px solid #3a3b3c;
+    }
+
+    .search-box {
+        background-color: #3a3b3c;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .search-box:focus-within {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    .search-input {
+        color: #e4e6eb;
+    }
+
+    .search-input::placeholder {
+        color: #b0b3b8;
+    }
+
+    /* MUI TextField overrides for dark mode */
+    .search-box .MuiOutlinedInput-root {
+        color: #e4e6eb;
+    }
+
+    .search-box .MuiOutlinedInput-root fieldset {
+        border-color: transparent;
+    }
+
+    .search-box .MuiOutlinedInput-root:hover fieldset {
+        border-color: transparent;
+    }
+
+    .search-box .MuiOutlinedInput-root.Mui-focused fieldset {
+        border-color: #0084ff;
+    }
+
+    .search-box .MuiInputBase-input {
+        color: #e4e6eb;
+    }
+
+    .search-box .MuiInputBase-input::placeholder {
+        color: #b0b3b8;
+    }
+
+    .search-box .MuiFormLabel-root {
+        color: #b0b3b8;
+    }
+
+    .search-button {
+        color: #0084ff;
+    }
+
+    .search-button:hover {
+        color: #31a3ff;
+    }
+}

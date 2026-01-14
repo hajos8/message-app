@@ -12,19 +12,19 @@ export default function ContactsComponent({ data }) {
     return (
         <List sx={{ width: '100%', maxWidth: 360 }}>
 
-            {data.map((elem, idx) => (
+            {data ? data.map((elem, idx) => (
                 <Fragment key={idx}>
                     <ListItem alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar alt="Avatar icon" src="/static/images/avatar/1.jpg" />
                         </ListItemAvatar>
                         <ListItemText
-                            primary={elem.name}
+                            primary={elem.username}
                         />
                     </ListItem>
                     <Divider variant="inset" component="li" />
                 </Fragment>
-            ))}
+            )) : <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>No contacts available.</Typography>}
         </List>
     );
 }
