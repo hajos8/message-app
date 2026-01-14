@@ -19,7 +19,7 @@ function RequireAuth({ loggedIn, redirectTo }) {
 function App() {
   const [userId, setUserId] = useState(null);
   const [username, setUsername] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false); // Set to true for testing purposes
+  const [loggedIn, setLoggedIn] = useState(true); // Set to true for testing purposes
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
