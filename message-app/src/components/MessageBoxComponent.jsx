@@ -2,9 +2,28 @@ import { TextField, Box, Icon, IconButton } from "@mui/material";
 import "../styles/Messages.css";
 
 export default function MessageBoxComponent({ data, setData }) {
+    const [messageText, setMessageText] = useState("");
+
     const handleSendMessage = () => {
-        //TODO implement send message functionality
-        console.log("Send message clicked");
+        fetch('/.netlify/functions/postSendMessage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                senderId: data.currentUserId,
+                receiverId: data.selectedContactId,
+                messageText: messageText
+            }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("Message sent:", data);
+                setMessageText("");
+            })
+            .catch(error => {
+                console.error("Error sending message:", error);
+            });
     }
 
     return (
@@ -23,7 +42,12 @@ export default function MessageBoxComponent({ data, setData }) {
                             : <p>Start a conversation</p>}
                     </Box>
                     <Box className="input-box">
-                        <TextField id="outlined" placeholder="Type a message" variant="outlined"
+                        <TextField
+                            id="outlined"
+                            placeholder="Type a message"
+                            variant="outlined"
+                            value={messageText}
+                            onChange={(e) => setMessageText(e.target.value)}
                             sx={
                                 { width: '100%', margin: '10px', borderRadius: '50%' }
                             } />
