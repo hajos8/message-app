@@ -15,6 +15,8 @@ export default async (request, context) => {
 
     const { senderId, receiverId, messageText } = await request.json();
 
+    console.log("Received message send request:", { senderId, receiverId, messageText });
+
     if (!senderId || !receiverId || !messageText) {
         return new Response(JSON.stringify({ error: "Missing required fields" }), {
             status: 400,

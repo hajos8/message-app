@@ -72,6 +72,8 @@ export default function ContactsComponent({
             });
     }
 
+    console.log("ContactsComponent data:", data);
+
     return (
         <List
             sx={{
@@ -88,7 +90,7 @@ export default function ContactsComponent({
                 elem.id === userId ? null :
                     <Fragment key={idx}>
                         <ListItem alignItems="center" sx={{ py: 1.25, px: 1.75 }}
-                            {...(type === "contacts" ? { onClick: () => handleChangeChat(elem.id) } : { secondaryAction: null })}
+                            {...(type === "contacts" ? { onClick: () => handleChangeChat(elem.user2_id) } : { secondaryAction: null })}
                         >
                             <ListItemAvatar>
                                 <Avatar alt="Avatar icon" src="/static/images/avatar/1.jpg" sx={{ width: 44, height: 44 }} />
