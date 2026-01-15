@@ -13,8 +13,33 @@ import AddIcon from '@mui/icons-material/Add';
 export default function ContactsComponent({ data, canBeAdded, userId }) {
 
     const handleSendRequest = (contactId) => {
-        // Implement send contact request logic here
+        //TODO Implement spinner and snackbar in the future
         console.log(`Send contact request to user with ID: ${contactId} from user with ID: ${userId}`);
+
+        fetch('/.netlify/functions/postNewRequest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fromUserId: userId, toUserId: contactId }),
+        })
+            .then(async res => {
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    throw new Error(errorData.error || 'Failed to send friend request');
+                }
+                else {
+                    //TODO add snackbar success message
+                    console.log('Friend request sent successfully');
+                }
+            })
+            .catch(error => {
+                console.error('Error sending friend request:', error);
+                //TODO add snackbar error message
+            })
+            .finally(() => {
+                //TODO stop spinner
+            });
     }
 
     return (
