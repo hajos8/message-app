@@ -10,7 +10,7 @@ import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 //TODO add avatar image
-export default function ContactsComponent({ data, userId, alreadySentRequests, setAlreadySentRequests, type, setOpenSnackbar, setSnackbarMessage }) {
+export default function ContactsComponent({ data, userId, userSentRequests, setUserSentRequests, type, setOpenSnackbar, setSnackbarMessage }) {
 
     const handleSendRequest = (contactId) => {
         //TODO Implement spinner here
@@ -31,7 +31,7 @@ export default function ContactsComponent({ data, userId, alreadySentRequests, s
                 else {
                     setOpenSnackbar(true);
                     setSnackbarMessage('Friend request sent successfully');
-                    setAlreadySentRequests(prev => [...prev, contactId]);
+                    setUserSentRequests(prev => [...prev, contactId]);
                 }
             })
             .catch(error => {
@@ -56,7 +56,7 @@ export default function ContactsComponent({ data, userId, alreadySentRequests, s
                             <ListItemText
                                 primary={elem.username}
                             />
-                            {type === "search" && !alreadySentRequests.includes(elem.id) ?
+                            {type === "search" && userSentRequests.includes(elem.id) ?
                                 <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>Request Sent</Typography>
                                 :
                                 <IconButton

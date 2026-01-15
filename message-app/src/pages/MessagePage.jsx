@@ -128,7 +128,9 @@ export default function MessagePage({ userId, username, setOpenSnackbar, setSnac
                     <TabComponent
                         userContacts={userContacts}
                         userRequests={userRequests}
+                        setUserRequests={setUserRequests}
                         userSentRequests={userSentRequests}
+                        setUserSentRequests={setUserSentRequests}
                         userId={userId}
                         setOpenSnackbar={setOpenSnackbar}
                         setSnackbarMessage={setSnackbarMessage}

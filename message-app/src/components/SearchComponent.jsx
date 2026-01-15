@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ContactsComponent from "./ContactsComponent";
 import '../styles/Search.css';
 
-export default function SearchComponent({ userId }) {
+export default function SearchComponent({ userId, setOpenSnackbar, setSnackbarMessage, userSentRequests, setUserSentRequests }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
@@ -52,7 +52,7 @@ export default function SearchComponent({ userId }) {
             </Box>
 
             <Box className="results-container">
-                <ContactsComponent data={searchResults} userId={userId} type={"search"} />
+                <ContactsComponent data={searchResults} userId={userId} type={"search"} userSentRequests={userSentRequests} setUserSentRequests={setUserSentRequests} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} />
             </Box>
         </Box>
     );
