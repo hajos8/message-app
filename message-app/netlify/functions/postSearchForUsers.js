@@ -28,13 +28,6 @@ export default async (request, context) => {
 
     console.log("Fetched users from database:", users);
 
-    if (users.length === 0) {
-        return new Response(JSON.stringify({ message: "No users found" }), {
-            status: 404,
-            headers: { 'Content-Type': 'application/json' },
-        });
-    }
-
     return new Response(JSON.stringify(users),
         {
             status: 200,

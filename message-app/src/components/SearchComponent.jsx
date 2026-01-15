@@ -11,6 +11,7 @@ export default function SearchComponent({
     userSentRequests, setUserSentRequests,
     userContacts,
     loading, setLoading }) {
+    const [allUsers, setAllUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
@@ -20,6 +21,7 @@ export default function SearchComponent({
             .then(async res => {
                 const data = await res.json();
                 console.log(data);
+                setAllUsers(data);
                 setSearchResults(data);
             })
             .catch(error => {
@@ -33,6 +35,10 @@ export default function SearchComponent({
     }, []);
 
     const handleSearch = () => {
+        if (searchTerm.trim() === "") {
+            setSearchResults(allUsers);
+            return;
+        }
         setLoading(true);
         fetch('/.netlify/functions/postSearchForUsers', {
             method: 'POST',
@@ -43,7 +49,7 @@ export default function SearchComponent({
         })
             .then(async res => {
                 const data = await res.json();
-                //console.log(data);
+                console.log(data);
                 setSearchResults(data);
             })
             .catch(error => {
