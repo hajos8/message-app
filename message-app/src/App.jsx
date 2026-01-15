@@ -38,7 +38,7 @@ function App() {
         <Route path="/register" element={<RegisterPage setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} setLoading={setLoading} />} />
 
         <Route element={<RequireAuth loggedIn={loggedIn} redirectTo="/login" />}>
-          <Route path="/messages" element={<MessagePage userId={userId} username={username} />} />
+          <Route path="/messages" element={<MessagePage setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} setLoading={setLoading} userId={userId} username={username} />} />
           <Route path="/search" element={<SearchPage />} />
         </Route>
 

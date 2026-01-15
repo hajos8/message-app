@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -10,10 +10,10 @@ import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 //TODO add avatar image
-export default function ContactsComponent({ data, canBeAdded, userId }) {
+export default function ContactsComponent({ data, userId, alreadySentRequests, setAlreadySentRequests, type, setOpenSnackbar, setSnackbarMessage }) {
 
     const handleSendRequest = (contactId) => {
-        //TODO Implement spinner and snackbar in the future
+        //TODO Implement spinner here
         console.log(`Send contact request to user with ID: ${contactId} from user with ID: ${userId}`);
 
         fetch('/.netlify/functions/postNewRequest', {
@@ -29,13 +29,15 @@ export default function ContactsComponent({ data, canBeAdded, userId }) {
                     throw new Error(errorData.error || 'Failed to send friend request');
                 }
                 else {
-                    //TODO add snackbar success message
-                    console.log('Friend request sent successfully');
+                    setOpenSnackbar(true);
+                    setSnackbarMessage('Friend request sent successfully');
+                    setAlreadySentRequests(prev => [...prev, contactId]);
                 }
             })
             .catch(error => {
                 console.error('Error sending friend request:', error);
-                //TODO add snackbar error message
+                setOpenSnackbar(true);
+                setSnackbarMessage('Error sending friend request');
             })
             .finally(() => {
                 //TODO stop spinner
@@ -54,7 +56,9 @@ export default function ContactsComponent({ data, canBeAdded, userId }) {
                             <ListItemText
                                 primary={elem.username}
                             />
-                            {canBeAdded &&
+                            {type === "search" && !alreadySentRequests.includes(elem.id) ?
+                                <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>Request Sent</Typography>
+                                :
                                 <IconButton
                                     edge="end"
                                     aria-label="add"

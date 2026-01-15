@@ -5,7 +5,7 @@ import { TabPanel, TabContext, TabList } from '@mui/lab';
 import ContactsComponent from "./ContactsComponent";
 import SearchComponent from "./SearchComponent";
 
-export default function TabComponent({ data, userId }) {
+export default function TabComponent({ userContacts, userRequests, userSentRequests, userId, setOpenSnackbar, setSnackbarMessage }) {
     const [value, setValue] = useState("1");
 
     const handleChange = (event, newValue) => {
@@ -22,10 +22,10 @@ export default function TabComponent({ data, userId }) {
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    <ContactsComponent data={data} />
+                    <ContactsComponent data={userContacts} userId={userId} type={"contact"} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} />
                 </TabPanel>
                 <TabPanel value="2">
-                    <SearchComponent userId={userId} />
+                    <SearchComponent userId={userId} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} />
                 </TabPanel>
             </TabContext>
         </Box>

@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 import NavBarComponent from "../components/NavBarComponent";
 import ContactsComponent from "../components/ContactsComponent";
@@ -74,29 +74,70 @@ const messengerData = { // Dummy adatstruktúra az üzenetekhez
     ]
 };
 
-export default function MessagePage({ userId, username }) {
-    useEffect(() => {
-        fetch("/.netlify/functions/get")
-            .then(async response => {
-                console.log(response);
-                const data = await response.json()
+export default function MessagePage({ userId, username, setOpenSnackbar, setSnackbarMessage, setLoading }) {
+    const [userContacts, setUserContacts] = useState([]);
+    const [userRequests, setUserRequests] = useState([]);
+    const [userSentRequests, setUserSentRequests] = useState([]);
 
-                console.log("Fetched data:", data);
+    useEffect(() => {
+        //TODO fetch user contacts, requests and sent requests from backend
+        function fetchUserContacts() {
+            fetch('/.netlify/functions/getAllUser')
+                .then(res => res.json())
+                .then(data => {
+                    setUserContacts(data);
+                })
+                .catch(error => {
+                    setOpenSnackbar(true);
+                    setSnackbarMessage('Error fetching user contacts');
+                });
+        }
+        function fetchUserRequests() {
+            fetch('/.netlify/functions/postQueryRequestsForUser', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId: userId }),
             })
-            .catch(error => {
-                console.log("Error fetching data:", error);
-            });
-    }, []);
+                .then(res => res.json())
+                .then(data => {
+                    setUserRequests(data);
+                    const sentRequests = data.filter(req => req.from_id === userId).map(req => req.to_id);
+                    setUserSentRequests(sentRequests);
+                }
+                )
+                .catch(error => {
+                    setOpenSnackbar(true);
+                    setSnackbarMessage('Error fetching user requests');
+                });
+        }
+
+        setLoading(true);
+
+        Promise.all([fetchUserRequests(), fetchUserContacts()]).finally(() => {
+            setLoading(false);
+        });
+    }, [userId, setOpenSnackbar, setSnackbarMessage, setLoading]);
 
     return (
         <div style={{ height: "100vh", width: "100vw" }}>
             <NavBarComponent />
             <div style={{ display: "flex" }}>
                 <div style={{ width: "30%", borderRight: "1px solid #ccc" }}>
-                    <TabComponent data={messengerData.users} userId={userId} />
+                    <TabComponent
+                        userContacts={userContacts}
+                        userRequests={userRequests}
+                        userSentRequests={userSentRequests}
+                        userId={userId}
+                        setOpenSnackbar={setOpenSnackbar}
+                        setSnackbarMessage={setSnackbarMessage}
+                    />
                 </div>
                 <div style={{ width: "70%" }}>
-                    <MessageBoxComponent currentUserId={messengerData.currentUserId} data={messengerData.conversations} />
+                    <MessageBoxComponent
+                        currentUserId={messengerData.currentUserId}
+                        data={messengerData.conversations} />
                 </div>
             </div>
         </div>

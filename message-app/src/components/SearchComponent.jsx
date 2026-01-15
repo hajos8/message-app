@@ -45,9 +45,6 @@ export default function SearchComponent({ userId }) {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     variant="standard"
-                    InputProps={{
-                        disableUnderline: true,
-                    }}
                 />
                 <IconButton aria-label="search" className="search-button" size="small" onClick={handleSearch}>
                     <SearchIcon />
@@ -55,7 +52,7 @@ export default function SearchComponent({ userId }) {
             </Box>
 
             <Box className="results-container">
-                <ContactsComponent data={searchResults} canBeAdded={true} userId={userId} />
+                <ContactsComponent data={searchResults} userId={userId} type={"search"} />
             </Box>
         </Box>
     );
