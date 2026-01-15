@@ -12,24 +12,74 @@ import {
 } from '@mui/material';
 import { Check as CheckIcon, Close as CloseIcon } from '@mui/icons-material';
 
-export default function ContactRequestComponent() {
-    const [requests, setRequests] = useState([
-        { id: 1, name: 'John Doe' },
-        { id: 2, name: 'Jane Smith' },
-    ]);
-
+export default function ContactRequestComponent({ userId, userRequests, setUserRequests, setOpenSnackbar, setSnackbarMessage, loading, setLoading }) {
     const handleAccept = (id) => {
-        setRequests(requests.filter(req => req.id !== id));
+        setLoading(true);
+        fetch('/.netlify/functions/postAcceptRequest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fromUserId: id, toUserId: userId }),
+        })
+            .then(async res => {
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    throw new Error(errorData.error || 'Failed to accept friend request');
+                }
+                else {
+                    setOpenSnackbar(true);
+                    setSnackbarMessage('Friend request accepted successfully');
+                    setUserRequests(userRequests.filter(req => req.id !== id));
+                }
+            })
+            .catch(error => {
+                console.error('Error accepting friend request:', error);
+                setOpenSnackbar(true);
+                setSnackbarMessage('Error accepting friend request');
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+
     };
 
     const handleDecline = (id) => {
-        setRequests(requests.filter(req => req.id !== id));
+        setLoading(true);
+        fetch('/.netlify/functions/deleteDeclineRequest', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ fromUserId: id, toUserId: userId }),
+        })
+            .then(async res => {
+                if (!res.ok) {
+                    const errorData = await res.json();
+                    throw new Error(errorData.error || 'Failed to decline friend request');
+                }
+                else {
+                    setOpenSnackbar(true);
+                    setSnackbarMessage('Friend request declined successfully');
+                    setUserRequests(userRequests.filter(req => req.id !== id));
+                }
+            })
+            .catch(error => {
+                console.error('Error declining friend request:', error);
+                setOpenSnackbar(true);
+                setSnackbarMessage('Error declining friend request');
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
-    return (
+    return userRequests.length === 0 ? (
+        null
+    ) : (
         <Container maxWidth="sm" sx={{ py: 4 }}>
             <Stack spacing={2}>
-                {requests.map((request) => (
+                {userRequests.map((request) => (
                     <Card key={request.id} sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                         <Avatar alt="Avatar icon" src="/static/images/avatar/1.jpg" />
                         <CardContent sx={{ flex: 1 }}>
