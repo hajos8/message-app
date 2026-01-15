@@ -26,7 +26,6 @@ export default function LoginPage({ setUserId, setUsername, setLoggedIn, setOpen
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log("Login form submitted:", formValues);
         setLoading(true);
         fetch("/.netlify/functions/login", {
             method: "POST",
@@ -40,7 +39,6 @@ export default function LoginPage({ setUserId, setUsername, setLoggedIn, setOpen
                 }
                 else {
                     const data = await res.json();
-                    console.log("Login successful:", data);
 
                     setUserId(data.id);
                     setUsername(data.name);

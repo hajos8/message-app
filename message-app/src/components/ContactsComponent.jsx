@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -18,6 +19,25 @@ export default function ContactsComponent({
     userContacts,
     setOpenSnackbar, setSnackbarMessage,
     loading, setLoading }) {
+
+    const theme = useTheme();
+    const palette = theme.palette.mode === 'dark'
+        ? {
+            cardBg: 'linear-gradient(145deg, #1f2128 0%, #252935 100%)',
+            border: '#2f3340',
+            shadow: '0 10px 26px rgba(0,0,0,0.45)',
+            text: '#f3f4f6',
+            sub: '#9ea4b3',
+            chip: 'rgba(24, 119, 242, 0.16)',
+        }
+        : {
+            cardBg: 'linear-gradient(145deg, #ffffff 0%, #f7f9fc 100%)',
+            border: '#e6e9f2',
+            shadow: '0 10px 26px rgba(0,0,0,0.1)',
+            text: '#1c1e21',
+            sub: '#6b7280',
+            chip: 'rgba(24, 119, 242, 0.1)',
+        };
 
     const handleSendRequest = (contactId) => {
         setLoading(true);
@@ -52,35 +72,48 @@ export default function ContactsComponent({
     }
 
     return (
-        <List sx={{ width: '100%', maxWidth: 360 }}>
+        <List
+            sx={{
+                width: '100%',
+                maxWidth: 480,
+                background: palette.cardBg,
+                borderRadius: 2,
+                border: `1px solid ${palette.border}`,
+                boxShadow: palette.shadow,
+                overflow: 'hidden',
+            }}
+        >
             {data ? data.map((elem, idx) => (
                 elem.id === userId ? null :
                     <Fragment key={idx}>
-                        <ListItem alignItems="flex-start">
+                        <ListItem alignItems="center" sx={{ py: 1.25, px: 1.75 }}>
                             <ListItemAvatar>
-                                <Avatar alt="Avatar icon" src="/static/images/avatar/1.jpg" />
+                                <Avatar alt="Avatar icon" src="/static/images/avatar/1.jpg" sx={{ width: 44, height: 44 }} />
                             </ListItemAvatar>
                             <ListItemText
                                 primary={elem.username}
+                                primaryTypographyProps={{ fontWeight: 700, color: palette.text }}
                             />
                             {type == "search" && userSentRequests.includes(elem.id)
                                 ?
-                                <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>Request Sent</Typography>
+                                <Typography variant="body2" sx={{ px: 2, color: palette.sub }}>Request Sent</Typography>
                                 :
                                 userContacts && userContacts.some(contact =>
                                     (contact.user1_id === elem.id || contact.user2_id === elem.id))
                                     ?
-                                    <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>Contact</Typography>
+                                    <Typography variant="body2" sx={{ px: 2, color: palette.sub }}>Contact</Typography>
                                     :
                                     type !== "contacts" && ( // Only show the button if type is not contacts
                                         <IconButton
                                             edge="end"
                                             aria-label="add"
                                             sx={{
-                                                color: '#0084ff',
-                                                backgroundColor: 'rgba(0, 132, 255, 0.1)',
+                                                color: '#1877f2',
+                                                backgroundColor: palette.chip,
                                                 '&:hover': {
-                                                    backgroundColor: 'rgba(0, 132, 255, 0.2)',
+                                                    backgroundColor: theme.palette.mode === 'dark'
+                                                        ? 'rgba(24, 119, 242, 0.25)'
+                                                        : 'rgba(24, 119, 242, 0.18)',
                                                 }
                                             }}
                                             onClick={() => handleSendRequest(elem.id)}

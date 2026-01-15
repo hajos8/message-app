@@ -113,8 +113,6 @@ export default function MessagePage({ userId, username, setOpenSnackbar, setSnac
                     const sentRequests = data.filter(req => req.from_id === userId).map(req => req.to_id);
                     setUserRequests(requestsForUser);
                     setUserSentRequests(sentRequests);
-
-                    console.log(data);
                 }
                 )
                 .catch(error => {
