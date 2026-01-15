@@ -70,6 +70,40 @@ export default function MessagePage({ userId, username, setOpenSnackbar, setSnac
             ...prevData,
             selectedContactId: chatId,
         }));
+
+        fetch('/.netlify/functions/postQueryMessages', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                senderId: userId,
+                receiverId: chatId
+            }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("Fetched messages:", data);
+                setMessagesData(prevData => ({
+                    ...prevData,
+                    conversations: [{
+                        contactId: chatId, messages: data.map(msg => ({
+                            id: msg.id,
+                            senderId: msg.from_id,
+                            receiverId: msg.to_id,
+                            text: msg.message,
+                            timestamp: msg.date
+                        }))
+                    }]
+                }));
+            })
+            .catch(error => {
+                setOpenSnackbar(true);
+                setSnackbarMessage('Error fetching messages for selected chat');
+            })
+            .finally(() => {
+                //setLoading(false);
+            });
     }
 
     return (

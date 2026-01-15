@@ -1,8 +1,12 @@
 import { TextField, Box, Icon, IconButton } from "@mui/material";
+import { useState } from "react";
 import "../styles/Messages.css";
 
 export default function MessageBoxComponent({ data, setData }) {
     const [messageText, setMessageText] = useState("");
+
+    const currentConversation = data.conversations.find(conv => conv.contactId === data.selectedContactId);
+    const messages = currentConversation?.messages ?? [];
 
     const handleSendMessage = () => {
         fetch('/.netlify/functions/postSendMessage', {
@@ -31,9 +35,9 @@ export default function MessageBoxComponent({ data, setData }) {
             {data.selectedContactId ?
                 <>
                     <Box className="message-box">
-                        {data.conversations.length != 0 ? data[0].messages.map((elem, idx) => {
+                        {messages.length !== 0 ? messages.map((elem, idx) => {
                             return (
-                                <Box key={idx} className={elem.senderId == data.currentUserId ? "sent message" : "received message"}>
+                                <Box key={elem.id ?? idx} className={elem.senderId === data.currentUserId ? "sent message" : "received message"}>
                                     <p>{elem.text}</p>
                                     <span className="timestamp">{elem.timestamp}</span>
                                 </Box>

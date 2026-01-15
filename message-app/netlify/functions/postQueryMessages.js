@@ -1,4 +1,4 @@
-// message-app/netlify/functions/postSendMessage.js
+// message-app/netlify/functions/postQueryMessages.js
 
 import { neon } from '@neondatabase/serverless';
 
@@ -13,25 +13,24 @@ export default async (request, context) => {
         });
     }
 
-    const { senderId, receiverId, messageText } = await request.json();
+    const { senderId, receiverId } = await request.json();
 
-    if (!senderId || !receiverId || !messageText) {
+    if (!senderId || !receiverId) {
         return new Response(JSON.stringify({ error: "Missing required fields" }), {
             status: 400,
             headers: { 'Content-Type': 'application/json' },
         });
     }
-    const timestamp = new Date().toISOString();
 
-    const insertedMessage = await sql`
-        INSERT INTO messages (from_id, to_id, message, date)
-        VALUES (${senderId}, ${receiverId}, ${messageText}, ${timestamp})
-        RETURNING id, from_id, to_id, message, date;
+    const messages = await sql`
+        SELECT id, from_id, to_id, message, date
+        FROM messages
+        WHERE (from_id = ${senderId} AND to_id = ${receiverId})
+           OR (from_id = ${receiverId} AND to_id = ${senderId})
+        ORDER BY date ASC;
     `;
 
-    console.log("Inserted message into database:", insertedMessage);
-
-    return new Response(JSON.stringify(insertedMessage[0]),
+    return new Response(JSON.stringify(messages),
         {
             status: 200,
             headers: {
