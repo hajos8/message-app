@@ -14,6 +14,7 @@ export default function TabComponent({
     userRequests, setUserRequests,
     userSentRequests, setUserSentRequests,
     userId,
+    handleChangeChat,
     setOpenSnackbar, setSnackbarMessage }) {
 
     const [value, setValue] = useState("1");
@@ -77,7 +78,7 @@ export default function TabComponent({
                 </Box>
                 <TabPanel value="1" sx={{ px: 2, pb: 2 }}>
                     <ContactRequestComponent userId={userId} userRequests={userRequests} setUserRequests={setUserRequests} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} loading={loading} setLoading={setLoading} />
-                    <ContactsComponent data={userContacts} userId={userId} type={"contacts"} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} loading={loading} setLoading={setLoading} />
+                    <ContactsComponent data={userContacts} userId={userId} type={"contacts"} handleChangeChat={handleChangeChat} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} loading={loading} setLoading={setLoading} />
                 </TabPanel>
                 <TabPanel value="2" sx={{ px: 2, pb: 2 }}>
                     <ContactRequestComponent userId={userId} userRequests={userRequests} setUserRequests={setUserRequests} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} loading={loading} setLoading={setLoading} />

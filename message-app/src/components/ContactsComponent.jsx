@@ -17,6 +17,7 @@ export default function ContactsComponent({
     userSentRequests, setUserSentRequests,
     type,
     userContacts,
+    handleChangeChat,
     setOpenSnackbar, setSnackbarMessage,
     loading, setLoading }) {
 
@@ -86,7 +87,9 @@ export default function ContactsComponent({
             {data ? data.map((elem, idx) => (
                 elem.id === userId ? null :
                     <Fragment key={idx}>
-                        <ListItem alignItems="center" sx={{ py: 1.25, px: 1.75 }}>
+                        <ListItem alignItems="center" sx={{ py: 1.25, px: 1.75 }}
+                            {...(type === "contacts" ? { onClick: () => handleChangeChat(elem.id) } : { secondaryAction: null })}
+                        >
                             <ListItemAvatar>
                                 <Avatar alt="Avatar icon" src="/static/images/avatar/1.jpg" sx={{ width: 44, height: 44 }} />
                             </ListItemAvatar>
