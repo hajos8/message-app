@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Container,
     Card,
@@ -13,14 +13,15 @@ import {
 import { Check as CheckIcon, Close as CloseIcon } from '@mui/icons-material';
 
 export default function ContactRequestComponent({ userId, userRequests, setUserRequests, setOpenSnackbar, setSnackbarMessage, loading, setLoading }) {
-    const handleAccept = (id) => {
+    const handleAccept = (request) => {
+
         setLoading(true);
         fetch('/.netlify/functions/postAcceptRequest', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ fromUserId: id, toUserId: userId }),
+            body: JSON.stringify({ fromUserId: request.from_id, toUserId: request.to_id }),
         })
             .then(async res => {
                 if (!res.ok) {
@@ -30,7 +31,7 @@ export default function ContactRequestComponent({ userId, userRequests, setUserR
                 else {
                     setOpenSnackbar(true);
                     setSnackbarMessage('Friend request accepted successfully');
-                    setUserRequests(userRequests.filter(req => req.id !== id));
+                    setUserRequests(userRequests.filter(req => req.id !== request.id));
                 }
             })
             .catch(error => {
@@ -44,14 +45,14 @@ export default function ContactRequestComponent({ userId, userRequests, setUserR
 
     };
 
-    const handleDecline = (id) => {
+    const handleDecline = (request) => {
         setLoading(true);
         fetch('/.netlify/functions/deleteDeclineRequest', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ fromUserId: id, toUserId: userId }),
+            body: JSON.stringify({ fromUserId: request.from_id, toUserId: request.to_id }),
         })
             .then(async res => {
                 if (!res.ok) {
@@ -61,7 +62,7 @@ export default function ContactRequestComponent({ userId, userRequests, setUserR
                 else {
                     setOpenSnackbar(true);
                     setSnackbarMessage('Friend request declined successfully');
-                    setUserRequests(userRequests.filter(req => req.id !== id));
+                    setUserRequests(userRequests.filter(req => req.id !== request.id));
                 }
             })
             .catch(error => {
@@ -78,26 +79,29 @@ export default function ContactRequestComponent({ userId, userRequests, setUserR
         null
     ) : (
         <Container maxWidth="sm" sx={{ py: 4 }}>
+            <Typography variant="h5" gutterBottom>
+                Friend Requests
+            </Typography>
             <Stack spacing={2}>
-                {userRequests.map((request) => (
-                    <Card key={request.id} sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                {userRequests.map((request, idx) => (
+                    <Card key={idx} sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                         <Avatar alt="Avatar icon" src="/static/images/avatar/1.jpg" />
                         <CardContent sx={{ flex: 1 }}>
                             <Typography variant="h6" component="div">
-                                {request.name}
+                                {request.username}
                             </Typography>
                         </CardContent>
                         <CardActions>
                             <IconButton
                                 color="success"
-                                onClick={() => handleAccept(request.id)}
+                                onClick={() => handleAccept(request)}
                                 title="Accept request"
                             >
                                 <CheckIcon />
                             </IconButton>
                             <IconButton
                                 color="error"
-                                onClick={() => handleDecline(request.id)}
+                                onClick={() => handleDecline(request)}
                                 title="Decline request"
                             >
                                 <CloseIcon />

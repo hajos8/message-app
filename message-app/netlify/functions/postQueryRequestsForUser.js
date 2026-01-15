@@ -27,7 +27,19 @@ export default async (request, context) => {
     }
 
     const requests = await sql`
-    SELECT from_id, to_id FROM requests WHERE from_id = ${userId} OR to_id = ${userId}
+    SELECT 
+        requests.id,
+        requests.from_id, 
+        requests.to_id,
+        COALESCE(from_user.username, to_user.username) as username,
+        CASE 
+            WHEN requests.to_id = ${userId} THEN from_user.username
+            WHEN requests.from_id = ${userId} THEN to_user.username
+        END as sender_username
+    FROM requests
+    LEFT JOIN users as from_user ON requests.from_id = from_user.id
+    LEFT JOIN users as to_user ON requests.to_id = to_user.id
+    WHERE requests.from_id = ${userId} OR requests.to_id = ${userId}
     `;
 
     return new Response(JSON.stringify(requests),

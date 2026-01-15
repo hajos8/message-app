@@ -109,10 +109,12 @@ export default function MessagePage({ userId, username, setOpenSnackbar, setSnac
             })
                 .then(res => res.json())
                 .then(data => {
-                    const requestsForUser = data.filter(req => req.to_id === userId).map(req => req.from_id);
+                    const requestsForUser = data.filter(req => req.to_id === userId).map(req => ({ from_id: req.from_id, username: req.sender_username }));
                     const sentRequests = data.filter(req => req.from_id === userId).map(req => req.to_id);
                     setUserRequests(requestsForUser);
                     setUserSentRequests(sentRequests);
+
+                    console.log(data);
                 }
                 )
                 .catch(error => {

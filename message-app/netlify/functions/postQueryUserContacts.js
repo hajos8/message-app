@@ -27,7 +27,7 @@ export default async (request, context) => {
     }
 
     const contacts = await sql`
-    SELECT user1_id, user2_id FROM requests WHERE user1_id = ${userId} OR user2_id = ${userId}
+    SELECT user1_id, user2_id FROM relations WHERE user1_id = ${userId} OR user2_id = ${userId}
     `;
 
     return new Response(JSON.stringify(contacts),
