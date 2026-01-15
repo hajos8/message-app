@@ -70,7 +70,7 @@ export default function ContactsComponent({
                 setLoading(false);
             });
     }
-
+    console.log("ContactsComponent data:", data);
     return (
         <List
             sx={{

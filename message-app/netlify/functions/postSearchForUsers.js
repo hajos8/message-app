@@ -23,7 +23,7 @@ export default async (request, context) => {
     }
 
     const users = await sql`
-  SELECT username FROM users WHERE username ILIKE ${'%' + searchTerm + '%'}
+  SELECT id, username FROM users WHERE username ILIKE ${'%' + searchTerm + '%'}
   `;
 
     console.log("Fetched users from database:", users);
