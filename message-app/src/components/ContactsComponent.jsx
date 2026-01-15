@@ -15,6 +15,7 @@ export default function ContactsComponent({
     userId,
     userSentRequests, setUserSentRequests,
     type,
+    userContacts,
     setOpenSnackbar, setSnackbarMessage,
     loading, setLoading }) {
 
@@ -62,23 +63,29 @@ export default function ContactsComponent({
                             <ListItemText
                                 primary={elem.username}
                             />
-                            {type === "search" && userSentRequests.includes(elem.id) ?
+                            {type === "search" && userSentRequests.includes(elem.id)
+                                ?
                                 <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>Request Sent</Typography>
                                 :
-                                <IconButton
-                                    edge="end"
-                                    aria-label="add"
-                                    sx={{
-                                        color: '#0084ff',
-                                        backgroundColor: 'rgba(0, 132, 255, 0.1)',
-                                        '&:hover': {
-                                            backgroundColor: 'rgba(0, 132, 255, 0.2)',
-                                        }
-                                    }}
-                                    onClick={() => handleSendRequest(elem.id)}
-                                >
-                                    <AddIcon />
-                                </IconButton>
+                                userContacts && userContacts.some(contact =>
+                                    (contact.user1_id === elem.id || contact.user2_id === elem.id))
+                                    ?
+                                    <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>Contact</Typography>
+                                    :
+                                    <IconButton
+                                        edge="end"
+                                        aria-label="add"
+                                        sx={{
+                                            color: '#0084ff',
+                                            backgroundColor: 'rgba(0, 132, 255, 0.1)',
+                                            '&:hover': {
+                                                backgroundColor: 'rgba(0, 132, 255, 0.2)',
+                                            }
+                                        }}
+                                        onClick={() => handleSendRequest(elem.id)}
+                                    >
+                                        <AddIcon />
+                                    </IconButton>
                             }
                         </ListItem>
                         <Divider variant="inset" component="li" />

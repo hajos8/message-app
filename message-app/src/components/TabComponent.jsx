@@ -37,7 +37,7 @@ export default function TabComponent({
                 </TabPanel>
                 <TabPanel value="2">
                     <ContactRequestComponent userId={userId} userRequests={userRequests} setUserRequests={setUserRequests} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} loading={loading} setLoading={setLoading} />
-                    <SearchComponent userId={userId} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} userSentRequests={userSentRequests} setUserSentRequests={setUserSentRequests} loading={loading} setLoading={setLoading} />
+                    <SearchComponent userId={userId} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} userSentRequests={userSentRequests} setUserSentRequests={setUserSentRequests} loading={loading} setLoading={setLoading} userContacts={userContacts} />
                 </TabPanel>
             </TabContext>
             {loading && <SpinnerComponent />}

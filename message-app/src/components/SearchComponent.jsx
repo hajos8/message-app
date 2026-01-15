@@ -9,6 +9,7 @@ export default function SearchComponent({
     userId,
     setOpenSnackbar, setSnackbarMessage,
     userSentRequests, setUserSentRequests,
+    userContacts,
     loading, setLoading }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -74,7 +75,7 @@ export default function SearchComponent({
             </Box>
 
             <Box className="results-container">
-                <ContactsComponent data={searchResults} userId={userId} type={"search"} userSentRequests={userSentRequests} setUserSentRequests={setUserSentRequests} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} />
+                <ContactsComponent data={searchResults} userContacts={userContacts} userId={userId} type={"search"} userSentRequests={userSentRequests} setUserSentRequests={setUserSentRequests} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} />
             </Box>
         </Box>
     );
