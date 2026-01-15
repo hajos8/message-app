@@ -14,14 +14,14 @@ import { Check as CheckIcon, Close as CloseIcon } from '@mui/icons-material';
 
 export default function ContactRequestComponent({ userId, userRequests, setUserRequests, setOpenSnackbar, setSnackbarMessage, loading, setLoading }) {
     const handleAccept = (request) => {
-
+        console.log('Accepting request:', request);
         setLoading(true);
         fetch('/.netlify/functions/postAcceptRequest', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ fromUserId: request.from_id, toUserId: request.to_id }),
+            body: JSON.stringify({ fromUserId: request.from_id, toUserId: userId }),
         })
             .then(async res => {
                 if (!res.ok) {
@@ -31,7 +31,7 @@ export default function ContactRequestComponent({ userId, userRequests, setUserR
                 else {
                     setOpenSnackbar(true);
                     setSnackbarMessage('Friend request accepted successfully');
-                    setUserRequests(userRequests.filter(req => req.id !== request.id));
+                    setUserRequests(userRequests.filter(req => req.from_id !== request.from_id));
                 }
             })
             .catch(error => {
@@ -46,13 +46,14 @@ export default function ContactRequestComponent({ userId, userRequests, setUserR
     };
 
     const handleDecline = (request) => {
+        console.log('Declining request:', request);
         setLoading(true);
         fetch('/.netlify/functions/deleteDeclineRequest', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ fromUserId: request.from_id, toUserId: request.to_id }),
+            body: JSON.stringify({ fromUserId: request.from_id, toUserId: userId }),
         })
             .then(async res => {
                 if (!res.ok) {

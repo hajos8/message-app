@@ -42,7 +42,7 @@ export default function SearchComponent({
         })
             .then(async res => {
                 const data = await res.json();
-                console.log(data);
+                //console.log(data);
                 setSearchResults(data);
             })
             .catch(error => {
