@@ -5,20 +5,34 @@ import SearchIcon from '@mui/icons-material/Search';
 import ContactsComponent from "./ContactsComponent";
 import '../styles/Search.css';
 
-export default function SearchComponent({ userId, setOpenSnackbar, setSnackbarMessage, userSentRequests, setUserSentRequests }) {
+export default function SearchComponent({
+    userId,
+    setOpenSnackbar, setSnackbarMessage,
+    userSentRequests, setUserSentRequests,
+    loading, setLoading }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
     useEffect(() => {
+        setLoading(true);
         fetch('/.netlify/functions/getAllUser')
             .then(async res => {
                 const data = await res.json();
                 console.log(data);
                 setSearchResults(data);
+            })
+            .catch(error => {
+                console.error('Error fetching all users:', error);
+                setOpenSnackbar(true);
+                setSnackbarMessage('Error fetching users');
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }, []);
 
     const handleSearch = () => {
+        setLoading(true);
         fetch('/.netlify/functions/postSearchForUsers', {
             method: 'POST',
             headers: {
@@ -30,6 +44,14 @@ export default function SearchComponent({ userId, setOpenSnackbar, setSnackbarMe
                 const data = await res.json();
                 console.log(data);
                 setSearchResults(data);
+            })
+            .catch(error => {
+                console.error('Error searching for users:', error);
+                setOpenSnackbar(true);
+                setSnackbarMessage('Error searching for users');
+            })
+            .finally(() => {
+                setLoading(false);
             });
     };
 

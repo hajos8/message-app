@@ -4,6 +4,9 @@ import { TabPanel, TabContext, TabList } from '@mui/lab';
 
 import ContactsComponent from "./ContactsComponent";
 import SearchComponent from "./SearchComponent";
+import ContactRequestComponent from './ContactRequestComponent';
+
+import SpinnerComponent from './SpinnerComponent';
 
 export default function TabComponent({
     userContacts,
@@ -11,7 +14,9 @@ export default function TabComponent({
     userSentRequests, setUserSentRequests,
     userId,
     setOpenSnackbar, setSnackbarMessage }) {
+
     const [value, setValue] = useState("1");
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -27,12 +32,15 @@ export default function TabComponent({
                     </TabList>
                 </Box>
                 <TabPanel value="1">
-                    <ContactsComponent data={userContacts} userId={userId} type={"contact"} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} />
+                    <ContactRequestComponent userId={userId} userRequests={userRequests} setUserRequests={setUserRequests} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} loading={loading} setLoading={setLoading} />
+                    <ContactsComponent data={userContacts} userId={userId} type={"contact"} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} loading={loading} setLoading={setLoading} />
                 </TabPanel>
                 <TabPanel value="2">
-                    <SearchComponent userId={userId} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} userSentRequests={userSentRequests} setUserSentRequests={setUserSentRequests} />
+                    <ContactRequestComponent userId={userId} userRequests={userRequests} setUserRequests={setUserRequests} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} loading={loading} setLoading={setLoading} />
+                    <SearchComponent userId={userId} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} userSentRequests={userSentRequests} setUserSentRequests={setUserSentRequests} loading={loading} setLoading={setLoading} />
                 </TabPanel>
             </TabContext>
+            {loading && <SpinnerComponent />}
         </Box>
     );
 };

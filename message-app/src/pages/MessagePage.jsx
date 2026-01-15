@@ -82,11 +82,18 @@ export default function MessagePage({ userId, username, setOpenSnackbar, setSnac
     useEffect(() => {
         //TODO fetch user contacts, requests and sent requests from backend
         function fetchUserContacts() {
-            fetch('/.netlify/functions/getAllUser')
+            fetch('/.netlify/functions/postQueryUserContacts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId: userId }),
+            })
                 .then(res => res.json())
                 .then(data => {
                     setUserContacts(data);
-                })
+                }
+                )
                 .catch(error => {
                     setOpenSnackbar(true);
                     setSnackbarMessage('Error fetching user contacts');
@@ -102,8 +109,9 @@ export default function MessagePage({ userId, username, setOpenSnackbar, setSnac
             })
                 .then(res => res.json())
                 .then(data => {
-                    setUserRequests(data);
+                    const requestsForUser = data.filter(req => req.to_id === userId).map(req => req.from_id);
                     const sentRequests = data.filter(req => req.from_id === userId).map(req => req.to_id);
+                    setUserRequests(requestsForUser);
                     setUserSentRequests(sentRequests);
                 }
                 )

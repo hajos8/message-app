@@ -10,11 +10,17 @@ import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 //TODO add avatar image
-export default function ContactsComponent({ data, userId, userSentRequests, setUserSentRequests, type, setOpenSnackbar, setSnackbarMessage }) {
+export default function ContactsComponent({
+    data,
+    userId,
+    userSentRequests, setUserSentRequests,
+    type,
+    setOpenSnackbar, setSnackbarMessage,
+    loading, setLoading }) {
 
     const handleSendRequest = (contactId) => {
-        //TODO Implement spinner here
-        console.log(`Send contact request to user with ID: ${contactId} from user with ID: ${userId}`);
+        setLoading(true);
+        //console.log(`Send contact request to user with ID: ${contactId} from user with ID: ${userId}`);
 
         fetch('/.netlify/functions/postNewRequest', {
             method: 'POST',
@@ -40,7 +46,7 @@ export default function ContactsComponent({ data, userId, userSentRequests, setU
                 setSnackbarMessage('Error sending friend request');
             })
             .finally(() => {
-                //TODO stop spinner
+                setLoading(false);
             });
     }
 
