@@ -59,7 +59,7 @@ export default function ContactsComponent({
     return (
         <List className="contacts-list">
             {data ? data.map((elem, idx) => (
-                elem.id === userId ? null :
+                elem.id === userId && type === "search" ? null :
                     <Fragment key={idx}>
                         <ListItem
                             alignItems="center"
@@ -73,7 +73,7 @@ export default function ContactsComponent({
                                 primary={elem.username}
                                 className="contacts-list-item-text"
                             />
-                            {type == "search" && userSentRequests.includes(elem.id)
+                            {type === "search" && userSentRequests.includes(elem.id)
                                 ?
                                 <Typography variant="body2" className="contacts-request-sent">Request Sent</Typography>
                                 :
