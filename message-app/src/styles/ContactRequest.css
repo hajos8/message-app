@@ -1,0 +1,76 @@
+.contact-request-container {
+    padding: 16px 0;
+}
+
+.contact-request-header {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-request-title {
+    font-weight: 700;
+    color: #1c1e21;
+}
+
+.contact-request-count {
+    color: #6b7280;
+}
+
+.contact-request-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-request-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e6e9f2;
+    background: linear-gradient(145deg, #ffffff 0%, #f7f9fc 100%);
+}
+
+.contact-request-avatar {
+    width: 46px;
+    height: 46px;
+    border: 2px solid #e8ecf4;
+}
+
+.contact-request-content {
+    flex: 1;
+    padding: 8px 0;
+}
+
+.contact-request-name {
+    font-weight: 700;
+    color: #1c1e21;
+}
+
+.contact-request-subtitle {
+    color: #6b7280;
+}
+
+.contact-request-actions {
+    gap: 4px;
+}
+
+.contact-request-accept {
+    background-color: rgba(49, 162, 76, 0.1);
+}
+
+.contact-request-accept:hover {
+    background-color: rgba(49, 162, 76, 0.2);
+}
+
+.contact-request-decline {
+    background-color: rgba(234, 67, 53, 0.1);
+}
+
+.contact-request-decline:hover {
+    background-color: rgba(234, 67, 53, 0.2);
+}

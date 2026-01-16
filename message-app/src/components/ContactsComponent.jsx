@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from 'react';
-import { useTheme } from '@mui/material/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
@@ -9,6 +8,8 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+
+import '../styles/Contacts.css';
 
 //TODO add avatar image
 export default function ContactsComponent({
@@ -20,25 +21,6 @@ export default function ContactsComponent({
     handleChangeChat,
     setOpenSnackbar, setSnackbarMessage,
     loading, setLoading }) {
-
-    const theme = useTheme();
-    const palette = theme.palette.mode === 'dark'
-        ? {
-            cardBg: 'linear-gradient(145deg, #1f2128 0%, #252935 100%)',
-            border: '#2f3340',
-            shadow: '0 10px 26px rgba(0,0,0,0.45)',
-            text: '#f3f4f6',
-            sub: '#9ea4b3',
-            chip: 'rgba(24, 119, 242, 0.16)',
-        }
-        : {
-            cardBg: 'linear-gradient(145deg, #ffffff 0%, #f7f9fc 100%)',
-            border: '#e6e9f2',
-            shadow: '0 10px 26px rgba(0,0,0,0.1)',
-            text: '#1c1e21',
-            sub: '#6b7280',
-            chip: 'rgba(24, 119, 242, 0.1)',
-        };
 
     const handleSendRequest = (contactId) => {
         setLoading(true);
@@ -75,52 +57,36 @@ export default function ContactsComponent({
     //console.log("ContactsComponent data:", data);
 
     return (
-        <List
-            sx={{
-                width: '100%',
-                maxWidth: 480,
-                background: palette.cardBg,
-                borderRadius: 2,
-                border: `1px solid ${palette.border}`,
-                boxShadow: palette.shadow,
-                overflow: 'hidden',
-            }}
-        >
+        <List className="contacts-list">
             {data ? data.map((elem, idx) => (
                 elem.id === userId ? null :
                     <Fragment key={idx}>
-                        <ListItem alignItems="center" sx={{ py: 1.25, px: 1.75 }}
+                        <ListItem
+                            alignItems="center"
+                            className="contacts-list-item"
                             {...(type === "contacts" ? { onClick: () => handleChangeChat(elem.user2_id) } : { secondaryAction: null })}
                         >
                             <ListItemAvatar>
-                                <Avatar alt="Avatar icon" src="/static/images/avatar/1.jpg" sx={{ width: 44, height: 44 }} />
+                                <Avatar alt="Avatar icon" src="/static/images/avatar/1.jpg" className="contacts-avatar" />
                             </ListItemAvatar>
                             <ListItemText
                                 primary={elem.username}
-                                primaryTypographyProps={{ fontWeight: 700, color: palette.text }}
+                                className="contacts-list-item-text"
                             />
                             {type == "search" && userSentRequests.includes(elem.id)
                                 ?
-                                <Typography variant="body2" sx={{ px: 2, color: palette.sub }}>Request Sent</Typography>
+                                <Typography variant="body2" className="contacts-request-sent">Request Sent</Typography>
                                 :
                                 userContacts && userContacts.some(contact =>
                                     (contact.user1_id === elem.id || contact.user2_id === elem.id))
                                     ?
-                                    <Typography variant="body2" sx={{ px: 2, color: palette.sub }}>Contact</Typography>
+                                    <Typography variant="body2" className="contacts-contact-label">Contact</Typography>
                                     :
                                     type !== "contacts" && ( // Only show the button if type is not contacts
                                         <IconButton
                                             edge="end"
                                             aria-label="add"
-                                            sx={{
-                                                color: '#1877f2',
-                                                backgroundColor: palette.chip,
-                                                '&:hover': {
-                                                    backgroundColor: theme.palette.mode === 'dark'
-                                                        ? 'rgba(24, 119, 242, 0.25)'
-                                                        : 'rgba(24, 119, 242, 0.18)',
-                                                }
-                                            }}
+                                            className="contacts-add-button"
                                             onClick={() => handleSendRequest(elem.id)}
                                         >
                                             <AddIcon />
@@ -130,7 +96,7 @@ export default function ContactsComponent({
                         </ListItem>
                         <Divider variant="inset" component="li" />
                     </Fragment>
-            )) : <Typography variant="body2" color="text.secondary" sx={{ p: 2 }}>No contacts available.</Typography>}
+            )) : <Typography variant="body2" color="text.secondary" className="contacts-no-data">No contacts available.</Typography>}
         </List>
     );
 }

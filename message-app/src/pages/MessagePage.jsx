@@ -5,6 +5,8 @@ import ContactsComponent from "../components/ContactsComponent";
 import MessageBoxComponent from "../components/MessageBoxComponent";
 import TabComponent from "../components/TabComponent";
 
+import '../styles/MessagePage.css';
+
 export default function MessagePage({
     userId, setUserId,
     username, setUsername,
@@ -111,10 +113,10 @@ export default function MessagePage({
     }
 
     return (
-        <div style={{ height: "100vh", width: "100vw" }}>
+        <div className="message-page-container">
             <NavBarComponent setLoggedIn={setLoggedIn} setUserId={setUserId} username={username} setUsername={setUsername} />
-            <div style={{ display: "flex" }}>
-                <div style={{ width: "30%", borderRight: "1px solid #ccc" }}>
+            <div className="message-page-content">
+                <div className="message-page-sidebar">
                     <TabComponent
                         userContacts={userContacts}
                         userRequests={userRequests}
@@ -127,7 +129,7 @@ export default function MessagePage({
                         handleChangeChat={handleChangeChat}
                     />
                 </div>
-                <div style={{ width: "70%" }}>
+                <div className="message-page-main">
                     <MessageBoxComponent
                         data={messagesData}
                         setData={setMessagesData} />

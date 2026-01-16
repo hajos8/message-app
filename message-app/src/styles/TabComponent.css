@@ -1,0 +1,36 @@
+.tab-container {
+    width: 100%;
+    max-width: 480px;
+    margin: 24px auto 0;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    background: #ffffff;
+    border: 1px solid #e6e9f2;
+    overflow: hidden;
+}
+
+.tab-header {
+    padding: 16px 16px 4px;
+    border-bottom: 1px solid #e6e9f2;
+    background-color: #f0f2f5;
+}
+
+.tab-panel {
+    padding: 16px;
+}
+
+/* MUI Tab specific styling overrides */
+.tab-container .MuiTabs-indicator {
+    height: 3px;
+    border-radius: 999px;
+}
+
+.tab-container .MuiTab-root {
+    text-transform: none;
+    font-weight: 600;
+    color: #637381;
+}
+
+.tab-container .MuiTab-root.Mui-selected {
+    color: #1877f2;
+}

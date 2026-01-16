@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from '@mui/material/styles';
 import {
     Container,
     Card,
@@ -13,23 +12,9 @@ import {
 } from '@mui/material';
 import { Check as CheckIcon, Close as CloseIcon } from '@mui/icons-material';
 
+import '../styles/ContactRequest.css';
+
 export default function ContactRequestComponent({ userId, userRequests, setUserRequests, setOpenSnackbar, setSnackbarMessage, loading, setLoading }) {
-    const theme = useTheme();
-    const palette = theme.palette.mode === 'dark'
-        ? {
-            cardBg: 'linear-gradient(145deg, #1f2128 0%, #252935 100%)',
-            border: '#2f3340',
-            shadow: '0 10px 30px rgba(0,0,0,0.45)',
-            text: '#f3f4f6',
-            sub: '#9ea4b3',
-        }
-        : {
-            cardBg: 'linear-gradient(145deg, #ffffff 0%, #f7f9fc 100%)',
-            border: '#e6e9f2',
-            shadow: '0 8px 20px rgba(0,0,0,0.08)',
-            text: '#1c1e21',
-            sub: '#6b7280',
-        };
     const handleAccept = (request) => {
         console.log('Accepting request:', request);
         setLoading(true);
@@ -94,60 +79,37 @@ export default function ContactRequestComponent({ userId, userRequests, setUserR
     };
 
     return userRequests.length === 0 ? null : (
-        <Container maxWidth="sm" sx={{ py: 2 }}>
-            <Box
-                sx={{
-                    mb: 2,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1,
-                }}
-            >
-                <Typography variant="h6" sx={{ fontWeight: 700, color: palette.text }}>
+        <Container maxWidth="sm" className="contact-request-container">
+            <Box className="contact-request-header">
+                <Typography variant="h6" className="contact-request-title">
                     Friend Requests
                 </Typography>
-                <Typography variant="body2" sx={{ color: palette.sub }}>
+                <Typography variant="body2" className="contact-request-count">
                     {userRequests.length} pending
                 </Typography>
             </Box>
-            <Stack spacing={1.5}>
+            <Stack className="contact-request-list">
                 {userRequests.map((request, idx) => (
-                    <Card
-                        key={idx}
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 1,
-                            px: 1.5,
-                            py: 1,
-                            borderRadius: 2,
-                            boxShadow: palette.shadow,
-                            border: `1px solid ${palette.border}`,
-                            background: palette.cardBg,
-                        }}
-                    >
+                    <Card key={idx} className="contact-request-card">
                         <Avatar
                             alt="Avatar icon"
                             src="/static/images/avatar/1.jpg"
-                            sx={{ width: 46, height: 46, border: '2px solid #e8ecf4' }}
+                            className="contact-request-avatar"
                         />
-                        <CardContent sx={{ flex: 1, py: 1 }}>
-                            <Typography variant="subtitle1" sx={{ fontWeight: 700, color: palette.text }}>
+                        <CardContent className="contact-request-content">
+                            <Typography variant="subtitle1" className="contact-request-name">
                                 {request.username}
                             </Typography>
-                            <Typography variant="body2" sx={{ color: palette.sub }}>
+                            <Typography variant="body2" className="contact-request-subtitle">
                                 wants to connect
                             </Typography>
                         </CardContent>
-                        <CardActions sx={{ gap: 0.5 }}>
+                        <CardActions className="contact-request-actions">
                             <IconButton
                                 color="success"
                                 onClick={() => handleAccept(request)}
                                 title="Accept request"
-                                sx={{
-                                    backgroundColor: 'rgba(49, 162, 76, 0.1)',
-                                    '&:hover': { backgroundColor: 'rgba(49, 162, 76, 0.2)' },
-                                }}
+                                className="contact-request-accept"
                             >
                                 <CheckIcon />
                             </IconButton>
@@ -155,10 +117,7 @@ export default function ContactRequestComponent({ userId, userRequests, setUserR
                                 color="error"
                                 onClick={() => handleDecline(request)}
                                 title="Decline request"
-                                sx={{
-                                    backgroundColor: 'rgba(234, 67, 53, 0.1)',
-                                    '&:hover': { backgroundColor: 'rgba(234, 67, 53, 0.2)' },
-                                }}
+                                className="contact-request-decline"
                             >
                                 <CloseIcon />
                             </IconButton>
