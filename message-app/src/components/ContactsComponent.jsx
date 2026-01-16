@@ -64,7 +64,7 @@ export default function ContactsComponent({
                         <ListItem
                             alignItems="center"
                             className="contacts-list-item"
-                            {...(type === "contacts" ? { onClick: () => handleChangeChat(elem.user2_id) } : { secondaryAction: null })}
+                            {...(type === "contacts" ? { onClick: () => handleChangeChat([elem.user1_id, elem.user2_id]) } : { secondaryAction: null })}
                         >
                             <ListItemAvatar>
                                 <PersonIcon fontSize="large" className="contacts-avatar-icon" />

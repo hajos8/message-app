@@ -30,6 +30,8 @@ export default async (request, context) => {
         ORDER BY date ASC;
     `;
 
+    console.log(`Fetched ${messages.length} messages between users ${senderId} and ${receiverId}.`);
+
     return new Response(JSON.stringify(messages),
         {
             status: 200,

@@ -35,6 +35,28 @@ export default function MessageBoxComponent({ data, setData }) {
             .then(data => {
                 console.log("Message sent:", data);
                 setMessageText("");
+                // Update messages in state
+                setData(prevData => {
+                    const updatedConversations = prevData.conversations.map(conv => {
+                        if (conv.contactId === prevData.selectedContactId) {
+                            return {
+                                ...conv,
+                                messages: [...conv.messages, {
+                                    id: data.id,
+                                    senderId: data.from_id,
+                                    receiverId: data.to_id,
+                                    text: data.message,
+                                    timestamp: data.date
+                                }]
+                            };
+                        }
+                        return conv;
+                    });
+                    return {
+                        ...prevData,
+                        conversations: updatedConversations
+                    };
+                });
             })
             .catch(error => {
                 console.error("Error sending message:", error);

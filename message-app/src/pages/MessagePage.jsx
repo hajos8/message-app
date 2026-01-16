@@ -30,7 +30,6 @@ export default function MessagePage({
     }, [isMobile]);
 
     useEffect(() => {
-        //TODO fetch user contacts, requests and sent requests from backend
         function fetchUserContacts() {
             fetch('/.netlify/functions/postQueryUserContacts', {
                 method: 'POST',
@@ -79,10 +78,10 @@ export default function MessagePage({
     }, [userId, setOpenSnackbar, setSnackbarMessage, setLoading]);
 
     const handleChangeChat = (chatId) => {
-        console.log("Changing chat to contact ID:", chatId);
+        console.log("Changing chat to contact ID:", chatId[0] === userId ? chatId[1] : chatId[0]);
         setMessagesData(prevData => ({
             ...prevData,
-            selectedContactId: chatId,
+            selectedContactId: chatId[0] === userId ? chatId[1] : chatId[0],
         }));
 
         fetch('/.netlify/functions/postQueryMessages', {
@@ -92,7 +91,7 @@ export default function MessagePage({
             },
             body: JSON.stringify({
                 senderId: userId,
-                receiverId: chatId
+                receiverId: chatId[0] === userId ? chatId[1] : chatId[0]
             }),
         })
             .then(res => res.json())
@@ -101,7 +100,7 @@ export default function MessagePage({
                 setMessagesData(prevData => ({
                     ...prevData,
                     conversations: [{
-                        contactId: chatId, messages: data.map(msg => ({
+                        contactId: chatId[0] === userId ? chatId[1] : chatId[0], messages: data.map(msg => ({
                             id: msg.id,
                             senderId: msg.from_id,
                             receiverId: msg.to_id,
