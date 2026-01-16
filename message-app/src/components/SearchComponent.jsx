@@ -81,7 +81,16 @@ export default function SearchComponent({
             </Box>
 
             <Box className="results-container">
-                <ContactsComponent data={searchResults} userContacts={userContacts} userId={userId} type={"search"} userSentRequests={userSentRequests} setUserSentRequests={setUserSentRequests} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} />
+                <ContactsComponent
+                    data={searchResults}
+                    userContacts={userContacts}
+                    userId={userId}
+                    type={"search"}
+                    userSentRequests={userSentRequests}
+                    setUserSentRequests={setUserSentRequests}
+                    setOpenSnackbar={setOpenSnackbar}
+                    setSnackbarMessage={setSnackbarMessage}
+                    setLoading={setLoading} />
             </Box>
         </Box>
     );

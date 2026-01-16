@@ -12,7 +12,6 @@ import PersonIcon from '@mui/icons-material/Person';
 
 import '../styles/Contacts.css';
 
-//TODO add avatar image
 export default function ContactsComponent({
     data,
     userId,
