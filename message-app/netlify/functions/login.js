@@ -45,7 +45,7 @@ export default async (request, context) => {
 
     return new Response(JSON.stringify({
         id: user.id,
-        name: user.name,
+        username: user.username,
         email: user.email,
     }),
         {

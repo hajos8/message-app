@@ -112,7 +112,7 @@ export default function MessagePage({
 
     return (
         <div style={{ height: "100vh", width: "100vw" }}>
-            <NavBarComponent setLoggedIn={setLoggedIn} setUserId={setUserId} setUsername={setUsername} />
+            <NavBarComponent setLoggedIn={setLoggedIn} setUserId={setUserId} username={username} setUsername={setUsername} />
             <div style={{ display: "flex" }}>
                 <div style={{ width: "30%", borderRight: "1px solid #ccc" }}>
                     <TabComponent

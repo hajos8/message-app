@@ -40,8 +40,10 @@ export default function LoginPage({ setUserId, setUsername, setLoggedIn, setOpen
                 else {
                     const data = await res.json();
 
+                    //console.log("Login successful:", data);
+
                     setUserId(data.id);
-                    setUsername(data.name);
+                    setUsername(data.username);
                     setLoggedIn(true);
 
                     setSnackbarMessage('Login successful.');

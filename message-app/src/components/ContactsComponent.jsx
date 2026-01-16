@@ -72,7 +72,7 @@ export default function ContactsComponent({
             });
     }
 
-    console.log("ContactsComponent data:", data);
+    //console.log("ContactsComponent data:", data);
 
     return (
         <List

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { AppBar, Toolbar, IconButton, Menu, MenuItem, Box } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Menu, MenuItem, Box, Typography } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 
-export default function UserMenu({ setLoggedIn, setUserId, setUsername }) {
+export default function UserMenu({ setLoggedIn, setUserId, username, setUsername }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -21,6 +21,8 @@ export default function UserMenu({ setLoggedIn, setUserId, setUsername }) {
         setUsername(null);
     };
 
+    //console.log("NavBarComponent username:", username);
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -28,6 +30,9 @@ export default function UserMenu({ setLoggedIn, setUserId, setUsername }) {
                 <Box sx={{ flexGrow: 1 }} />
 
                 {/* Jobb felső sarok */}
+                <Typography variant="h6" component="div" sx={{ marginRight: 2 }}>
+                    {username}
+                </Typography>
                 <IconButton
                     size="large"
                     color="inherit"
