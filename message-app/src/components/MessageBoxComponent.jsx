@@ -33,7 +33,7 @@ export default function MessageBoxComponent({ data, setData }) {
         })
             .then(res => res.json())
             .then(data => {
-                console.log("Message sent:", data);
+                //console.log("Message sent:", data);
                 setMessageText("");
                 // Update messages in state
                 setData(prevData => {

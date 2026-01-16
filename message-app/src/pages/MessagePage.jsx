@@ -78,7 +78,7 @@ export default function MessagePage({
     }, [userId, setOpenSnackbar, setSnackbarMessage, setLoading]);
 
     const handleChangeChat = (chatId) => {
-        console.log("Changing chat to contact ID:", chatId[0] === userId ? chatId[1] : chatId[0]);
+        //console.log("Changing chat to contact ID:", chatId[0] === userId ? chatId[1] : chatId[0]);
         setMessagesData(prevData => ({
             ...prevData,
             selectedContactId: chatId[0] === userId ? chatId[1] : chatId[0],
@@ -96,7 +96,7 @@ export default function MessagePage({
         })
             .then(res => res.json())
             .then(data => {
-                console.log("Fetched messages:", data);
+                //console.log("Fetched messages:", data);
                 setMessagesData(prevData => ({
                     ...prevData,
                     conversations: [{

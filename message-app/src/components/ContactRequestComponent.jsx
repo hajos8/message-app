@@ -17,7 +17,7 @@ import '../styles/ContactRequest.css';
 
 export default function ContactRequestComponent({ userId, userRequests, setUserRequests, setOpenSnackbar, setSnackbarMessage, loading, setLoading }) {
     const handleAccept = (request) => {
-        console.log('Accepting request:', request);
+        //console.log('Accepting request:', request);
         setLoading(true);
         fetch('/.netlify/functions/postAcceptRequest', {
             method: 'POST',
@@ -49,7 +49,7 @@ export default function ContactRequestComponent({ userId, userRequests, setUserR
     };
 
     const handleDecline = (request) => {
-        console.log('Declining request:', request);
+        //console.log('Declining request:', request);
         setLoading(true);
         fetch('/.netlify/functions/deleteDeclineRequest', {
             method: 'DELETE',

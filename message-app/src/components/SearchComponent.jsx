@@ -20,7 +20,7 @@ export default function SearchComponent({
         fetch('/.netlify/functions/getAllUser')
             .then(async res => {
                 const data = await res.json();
-                console.log(data);
+                //console.log(data);
                 setAllUsers(data);
                 setSearchResults(data);
             })
