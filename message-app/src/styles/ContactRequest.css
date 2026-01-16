@@ -56,10 +56,21 @@
     background: linear-gradient(145deg, var(--bg) 0%, var(--panel) 100%);
 }
 
+.contact-request-card.MuiCard-root {
+    background-color: var(--bg) !important;
+    background-image: none !important;
+}
+
 .contact-request-avatar {
     width: 46px;
     height: 46px;
     border: 2px solid var(--border);
+    background: var(--panel);
+    color: var(--muted);
+}
+
+.contact-request-avatar-icon {
+    font-size: 28px;
 }
 
 .contact-request-content {
@@ -77,21 +88,82 @@
 }
 
 .contact-request-actions {
-    gap: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-request-actions> :not(style)~:not(style) {
+    margin-left: 0 !important;
 }
 
 .contact-request-accept {
-    background-color: rgba(49, 162, 76, 0.12);
+    background-color: rgba(46, 125, 50, 0.14);
+    color: #2e7d32;
 }
 
 .contact-request-accept:hover {
-    background-color: rgba(49, 162, 76, 0.2);
+    background-color: rgba(46, 125, 50, 0.24);
 }
 
 .contact-request-decline {
-    background-color: rgba(234, 67, 53, 0.12);
+    background-color: rgba(211, 47, 47, 0.14);
+    color: #d32f2f;
 }
 
 .contact-request-decline:hover {
-    background-color: rgba(234, 67, 53, 0.2);
+    background-color: rgba(211, 47, 47, 0.24);
+}
+
+@media (prefers-color-scheme: dark) {
+    .contact-request-card {
+        background: linear-gradient(145deg, #242731 0%, #1f2128 100%);
+        border-color: #2f3340;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.55);
+        background-image: none !important;
+        background-color: #1f2128 !important;
+    }
+
+    .contact-request-avatar {
+        background: #2b2f3a;
+        color: #d0d4df;
+        border-color: #2f3340;
+    }
+
+    .contact-request-name {
+        color: #e6e8f1;
+    }
+
+    .contact-request-subtitle,
+    .contact-request-count {
+        color: #b5bac6;
+    }
+
+    .contact-request-accept {
+        background-color: rgba(46, 204, 113, 0.18);
+        color: #7bd893;
+    }
+
+    .contact-request-accept:hover {
+        background-color: rgba(46, 204, 113, 0.26);
+    }
+
+    .contact-request-decline {
+        background-color: rgba(235, 87, 87, 0.18);
+        color: #f28b8b;
+    }
+
+    .contact-request-decline:hover {
+        background-color: rgba(235, 87, 87, 0.26);
+    }
+
+    .contact-request-title {
+        color: var(--text);
+    }
+
+    .contact-request-count,
+    .contact-request-subtitle {
+        color: var(--muted);
+    }
 }

@@ -11,6 +11,7 @@ import {
     Stack,
 } from '@mui/material';
 import { Check as CheckIcon, Close as CloseIcon } from '@mui/icons-material';
+import PersonIcon from '@mui/icons-material/Person';
 
 import '../styles/ContactRequest.css';
 
@@ -91,11 +92,9 @@ export default function ContactRequestComponent({ userId, userRequests, setUserR
             <Stack className="contact-request-list">
                 {userRequests.map((request, idx) => (
                     <Card key={idx} className="contact-request-card">
-                        <Avatar
-                            alt="Avatar icon"
-                            src="/static/images/avatar/1.jpg"
-                            className="contact-request-avatar"
-                        />
+                        <Avatar className="contact-request-avatar" aria-label="user avatar">
+                            <PersonIcon className="contact-request-avatar-icon" />
+                        </Avatar>
                         <CardContent className="contact-request-content">
                             <Typography variant="subtitle1" className="contact-request-name">
                                 {request.username}
