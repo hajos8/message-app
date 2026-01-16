@@ -1,12 +1,38 @@
+/* Theme variables for light/dark */
+:root {
+    --accent: #0084ff;
+    --accent-strong: #0066cc;
+    --accent-secondary: #1877f2;
+    --bg: #ffffff;
+    --panel: #f7f9fc;
+    --gradient: linear-gradient(to bottom, #f0f2f5 0%, #ffffff 100%);
+    --border: #e6e9f2;
+    --text: #050505;
+    --muted: #8a8d91;
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #1f2128;
+        --panel: #242731;
+        --gradient: linear-gradient(180deg, #1a1c23 0%, #1f2128 100%);
+        --border: #2f3340;
+        --text: #f3f4f6;
+        --muted: #9ea4b3;
+        --shadow-soft: 0 4px 14px rgba(0, 0, 0, 0.5);
+    }
+}
+
 /* Main Container */
 .message-box-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
     max-height: 100vh;
-    background: linear-gradient(to bottom, #f0f2f5 0%, #ffffff 100%);
+    background: var(--gradient);
     position: relative;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 /* Message Box Container */
@@ -18,7 +44,7 @@
     flex: 1;
     overflow-y: auto;
     overflow-x: hidden;
-    background: #ffffff;
+    background: var(--bg);
     scroll-behavior: smooth;
 }
 
@@ -28,17 +54,17 @@
     flex-direction: column;
     align-items: flex-end;
     margin-bottom: 4px;
-    animation: slideInRight 0.3s ease-out;
+    animation: slideInRight 0.25s ease-out;
 }
 
 .sent.message p {
-    background: linear-gradient(135deg, #0084ff 0%, #0066cc 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
     color: #ffffff;
     padding: 12px 18px;
-    border-radius: 20px;
+    border-radius: 18px;
     border-bottom-right-radius: 6px;
     margin: 0;
-    max-width: 65%;
+    max-width: 70%;
     min-width: 60px;
     word-wrap: break-word;
     font-size: 15px;
@@ -55,11 +81,11 @@
 
 .sent.message .timestamp {
     font-size: 11px;
-    color: #8a8d91;
+    color: var(--muted);
     margin-top: 6px;
     margin-right: 6px;
     font-weight: 500;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 /* Received Message */
@@ -68,17 +94,17 @@
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 4px;
-    animation: slideInLeft 0.3s ease-out;
+    animation: slideInLeft 0.25s ease-out;
 }
 
 .received.message p {
     background: linear-gradient(135deg, #e4e6eb 0%, #d8dadf 100%);
-    color: #050505;
+    color: var(--text);
     padding: 12px 18px;
-    border-radius: 20px;
+    border-radius: 18px;
     border-bottom-left-radius: 6px;
     margin: 0;
-    max-width: 65%;
+    max-width: 70%;
     min-width: 60px;
     word-wrap: break-word;
     font-size: 15px;
@@ -95,19 +121,19 @@
 
 .received.message .timestamp {
     font-size: 11px;
-    color: #8a8d91;
+    color: var(--muted);
     margin-top: 6px;
     margin-left: 6px;
     font-weight: 500;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 /* Input Area Styling */
 .message-box-container .MuiTextField-root {
     margin: 16px 20px !important;
-    background: #ffffff;
+    background: var(--bg);
     border-radius: 24px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-soft);
 }
 
 .message-box-container .MuiOutlinedInput-root {
@@ -116,27 +142,27 @@
 }
 
 .message-box-container .MuiOutlinedInput-root fieldset {
-    border-color: #e4e6eb;
+    border-color: var(--border);
     transition: border-color 0.3s ease;
 }
 
 .message-box-container .MuiOutlinedInput-root:hover fieldset {
-    border-color: #0084ff;
+    border-color: var(--accent-secondary);
 }
 
 .message-box-container .MuiOutlinedInput-root.Mui-focused fieldset {
-    border-color: #0084ff;
+    border-color: var(--accent-secondary);
     border-width: 2px;
 }
 
 .message-box-container .MuiInputBase-input {
     padding: 14px 18px;
     font-size: 15px;
-    color: #050505;
+    color: var(--text);
 }
 
 .message-box-container .MuiInputBase-input::placeholder {
-    color: #8a8d91;
+    color: var(--muted);
     opacity: 1;
 }
 

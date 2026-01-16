@@ -1,9 +1,30 @@
+:root {
+    --accent: #1877f2;
+    --bg: #ffffff;
+    --panel: #f7f9fc;
+    --border: #e6e9f2;
+    --text: #1c1e21;
+    --muted: #6b7280;
+    --shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #1f2128;
+        --panel: #242731;
+        --border: #2f3340;
+        --text: #f3f4f6;
+        --muted: #9ea4b3;
+        --shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+    }
+}
+
 .contact-request-container {
-    padding: 16px 0;
+    padding: 12px 0 4px;
 }
 
 .contact-request-header {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -11,11 +32,11 @@
 
 .contact-request-title {
     font-weight: 700;
-    color: #1c1e21;
+    color: var(--text);
 }
 
 .contact-request-count {
-    color: #6b7280;
+    color: var(--muted);
 }
 
 .contact-request-list {
@@ -27,18 +48,18 @@
 .contact-request-card {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e6e9f2;
-    background: linear-gradient(145deg, #ffffff 0%, #f7f9fc 100%);
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    background: linear-gradient(145deg, var(--bg) 0%, var(--panel) 100%);
 }
 
 .contact-request-avatar {
     width: 46px;
     height: 46px;
-    border: 2px solid #e8ecf4;
+    border: 2px solid var(--border);
 }
 
 .contact-request-content {
@@ -48,19 +69,19 @@
 
 .contact-request-name {
     font-weight: 700;
-    color: #1c1e21;
+    color: var(--text);
 }
 
 .contact-request-subtitle {
-    color: #6b7280;
+    color: var(--muted);
 }
 
 .contact-request-actions {
-    gap: 4px;
+    gap: 6px;
 }
 
 .contact-request-accept {
-    background-color: rgba(49, 162, 76, 0.1);
+    background-color: rgba(49, 162, 76, 0.12);
 }
 
 .contact-request-accept:hover {
@@ -68,7 +89,7 @@
 }
 
 .contact-request-decline {
-    background-color: rgba(234, 67, 53, 0.1);
+    background-color: rgba(234, 67, 53, 0.12);
 }
 
 .contact-request-decline:hover {
