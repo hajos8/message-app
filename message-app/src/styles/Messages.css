@@ -128,6 +128,14 @@
     opacity: 0.85;
 }
 
+.input-box {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--panel);
+}
+
 /* Input Area Styling */
 .message-box-container .MuiTextField-root {
     margin: 16px 20px !important;

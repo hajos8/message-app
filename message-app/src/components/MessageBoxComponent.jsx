@@ -1,4 +1,5 @@
 import { TextField, Box, Icon, IconButton } from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
 import { useState } from "react";
 import "../styles/Messages.css";
 
@@ -56,7 +57,7 @@ export default function MessageBoxComponent({ data, setData }) {
                                 { width: '100%', margin: '10px', borderRadius: '50%' }
                             } />
                         <IconButton onClick={handleSendMessage} sx={{ marginRight: '10px' }}>
-                            <Icon>send</Icon>
+                            <SendIcon />
                         </IconButton>
                     </Box>
                 </>

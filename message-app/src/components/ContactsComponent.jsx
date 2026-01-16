@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import PersonIcon from '@mui/icons-material/Person';
 
 import '../styles/Contacts.css';
 
@@ -67,7 +68,7 @@ export default function ContactsComponent({
                             {...(type === "contacts" ? { onClick: () => handleChangeChat(elem.user2_id) } : { secondaryAction: null })}
                         >
                             <ListItemAvatar>
-                                <Avatar alt="Avatar icon" src="/static/images/avatar/1.jpg" className="contacts-avatar" />
+                                <PersonIcon fontSize="large" className="contacts-avatar-icon" />
                             </ListItemAvatar>
                             <ListItemText
                                 primary={elem.username}
