@@ -4,7 +4,7 @@ import { Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import MessagePage from './pages/MessagePage.jsx'
-import SearchPage from './pages/SearchPage.jsx'
+
 
 import { Snackbar } from '@mui/material'
 
@@ -39,7 +39,6 @@ function App() {
 
         <Route element={<RequireAuth loggedIn={loggedIn} redirectTo="/login" />}>
           <Route path="/messages" element={<MessagePage userId={userId} setUserId={setUserId} username={username} setUsername={setUsername} setLoggedIn={setLoggedIn} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} setLoading={setLoading} />} />
-          <Route path="/search" element={<SearchPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to={loggedIn ? "/messages" : "/login"} replace />} />
