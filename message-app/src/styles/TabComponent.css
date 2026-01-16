@@ -1,0 +1,72 @@
+:root {
+    /* Messenger-like palette */
+    --accent: #1877f2;
+    --accent-strong: #0f6ad8;
+    --bg: #ffffff;
+    --panel: #f0f2f5;
+    --border: #e6e9f2;
+    --text: #1c1e21;
+    --muted: #637381;
+    --shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #1f2128;
+        --panel: #242731;
+        --border: #2f3340;
+        --text: #f3f4f6;
+        --muted: #9ea4b3;
+        --shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    }
+}
+
+.tab-container {
+    width: 100%;
+    max-width: 520px;
+    margin: 24px auto 0;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.tab-header {
+    padding: 16px 16px 6px;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--panel);
+}
+
+.tab-panel {
+    padding: 16px;
+}
+
+/* MUI Tab specific styling overrides */
+.tab-container .MuiTabs-indicator {
+    height: 3px;
+    border-radius: 999px;
+    background-color: var(--accent);
+}
+
+.tab-container .MuiTab-root {
+    text-transform: none;
+    font-weight: 600;
+    color: var(--muted);
+    min-height: 44px;
+}
+
+.tab-container .MuiTab-root.Mui-selected {
+    color: var(--accent);
+}
+
+@media (max-width: 640px) {
+    .tab-container {
+        margin-top: 12px;
+        border-radius: 12px;
+    }
+
+    .tab-panel {
+        padding: 12px;
+    }
+}
