@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AppBar, Toolbar, IconButton, Menu, MenuItem, Box } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 
-export default function UserMenu() {
+export default function UserMenu({ setLoggedIn, setUserId, setUsername }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -16,8 +16,9 @@ export default function UserMenu() {
 
     const handleLogout = () => {
         handleMenuClose();
-        console.log("Kijelentkezés...");
-        // ide jöhet auth logout logika
+        setLoggedIn(false);
+        setUserId(null);
+        setUsername(null);
     };
 
     return (

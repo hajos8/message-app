@@ -5,7 +5,11 @@ import ContactsComponent from "../components/ContactsComponent";
 import MessageBoxComponent from "../components/MessageBoxComponent";
 import TabComponent from "../components/TabComponent";
 
-export default function MessagePage({ userId, username, setOpenSnackbar, setSnackbarMessage, setLoading }) {
+export default function MessagePage({
+    userId, setUserId,
+    username, setUsername,
+    setLoggedIn,
+    setOpenSnackbar, setSnackbarMessage, setLoading }) {
     const [userContacts, setUserContacts] = useState([]);
     const [userRequests, setUserRequests] = useState([]);
     const [userSentRequests, setUserSentRequests] = useState([]);
@@ -108,7 +112,7 @@ export default function MessagePage({ userId, username, setOpenSnackbar, setSnac
 
     return (
         <div style={{ height: "100vh", width: "100vw" }}>
-            <NavBarComponent />
+            <NavBarComponent setLoggedIn={setLoggedIn} setUserId={setUserId} setUsername={setUsername} />
             <div style={{ display: "flex" }}>
                 <div style={{ width: "30%", borderRight: "1px solid #ccc" }}>
                     <TabComponent
