@@ -24,10 +24,11 @@
     display: flex;
     flex: 1;
     min-height: 0;
+    width: 100%;
 }
 
 .message-page-sidebar {
-    width: 32%;
+    flex: 0 0 320px;
     border-right: 1px solid var(--border);
     background: var(--bg);
     min-width: 260px;
@@ -36,12 +37,21 @@
 }
 
 .message-page-main {
-    width: 68%;
+    flex: 1 1 auto;
     min-width: 0;
     background: var(--bg);
+    display: flex;
+    flex-direction: column;
 }
 
-@media (max-width: 900px) {
+.drawer-content {
+    width: 320px;
+    max-width: 90vw;
+    background: var(--bg);
+    height: 100%;
+}
+
+@media (max-width: 768px) {
     .message-page-content {
         flex-direction: column;
     }

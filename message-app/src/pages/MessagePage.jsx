@@ -1,8 +1,8 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import NavBarComponent from "../components/NavBarComponent";
-import ContactsComponent from "../components/ContactsComponent";
 import MessageBoxComponent from "../components/MessageBoxComponent";
+import { SwipeableDrawer, useMediaQuery } from "@mui/material";
 import TabComponent from "../components/TabComponent";
 
 import '../styles/MessagePage.css';
@@ -20,6 +20,14 @@ export default function MessagePage({
         selectedContactId: null,
         conversations: [],
     });
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const isMobile = useMediaQuery("(max-width:768px)");
+
+    useEffect(() => {
+        if (!isMobile) {
+            setDrawerOpen(false);
+        }
+    }, [isMobile]);
 
     useEffect(() => {
         //TODO fetch user contacts, requests and sent requests from backend
@@ -114,21 +122,54 @@ export default function MessagePage({
 
     return (
         <div className="message-page-container">
-            <NavBarComponent setLoggedIn={setLoggedIn} setUserId={setUserId} username={username} setUsername={setUsername} />
+            <NavBarComponent
+                setLoggedIn={setLoggedIn}
+                setUserId={setUserId}
+                username={username}
+                setUsername={setUsername}
+                onMenuToggle={() => setDrawerOpen(true)}
+                showMenuToggle={isMobile}
+            />
             <div className="message-page-content">
-                <div className="message-page-sidebar">
-                    <TabComponent
-                        userContacts={userContacts}
-                        userRequests={userRequests}
-                        setUserRequests={setUserRequests}
-                        userSentRequests={userSentRequests}
-                        setUserSentRequests={setUserSentRequests}
-                        userId={userId}
-                        setOpenSnackbar={setOpenSnackbar}
-                        setSnackbarMessage={setSnackbarMessage}
-                        handleChangeChat={handleChangeChat}
-                    />
-                </div>
+                {isMobile && (
+                    <SwipeableDrawer
+                        anchor="left"
+                        open={drawerOpen}
+                        onOpen={() => setDrawerOpen(true)}
+                        onClose={() => setDrawerOpen(false)}
+                        disableDiscovery
+                    >
+                        <div className="drawer-content">
+                            <TabComponent
+                                userContacts={userContacts}
+                                userRequests={userRequests}
+                                setUserRequests={setUserRequests}
+                                userSentRequests={userSentRequests}
+                                setUserSentRequests={setUserSentRequests}
+                                userId={userId}
+                                setOpenSnackbar={setOpenSnackbar}
+                                setSnackbarMessage={setSnackbarMessage}
+                                handleChangeChat={handleChangeChat}
+                            />
+                        </div>
+                    </SwipeableDrawer>
+                )}
+
+                {!isMobile && (
+                    <div className="message-page-sidebar">
+                        <TabComponent
+                            userContacts={userContacts}
+                            userRequests={userRequests}
+                            setUserRequests={setUserRequests}
+                            userSentRequests={userSentRequests}
+                            setUserSentRequests={setUserSentRequests}
+                            userId={userId}
+                            setOpenSnackbar={setOpenSnackbar}
+                            setSnackbarMessage={setSnackbarMessage}
+                            handleChangeChat={handleChangeChat}
+                        />
+                    </div>
+                )}
                 <div className="message-page-main">
                     <MessageBoxComponent
                         data={messagesData}

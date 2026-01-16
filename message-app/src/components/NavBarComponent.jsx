@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { AppBar, Toolbar, IconButton, Menu, MenuItem, Box, Typography } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
+import { AccountCircle, Menu as MenuIcon } from "@mui/icons-material";
 
-export default function UserMenu({ setLoggedIn, setUserId, username, setUsername }) {
+export default function UserMenu({ setLoggedIn, setUserId, username, setUsername, onMenuToggle, showMenuToggle = false }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -26,10 +26,21 @@ export default function UserMenu({ setLoggedIn, setUserId, username, setUsername
     return (
         <AppBar position="static">
             <Toolbar>
-                {/* Bal oldal üresen hagyva */}
+                {showMenuToggle && (
+                    <IconButton
+                        size="large"
+                        color="inherit"
+                        onClick={onMenuToggle}
+                        edge="start"
+                        sx={{ mr: 1 }}
+                        aria-label="open sidebar"
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                )}
+
                 <Box sx={{ flexGrow: 1 }} />
 
-                {/* Jobb felső sarok */}
                 <Typography variant="h6" component="div" sx={{ marginRight: 2 }}>
                     {username}
                 </Typography>
