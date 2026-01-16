@@ -4,6 +4,7 @@ import { Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import MessagePage from './pages/MessagePage.jsx'
+import MainPage from './pages/MainPage.jsx'
 
 
 import { Snackbar } from '@mui/material'
@@ -34,6 +35,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<MainPage loggedIn={loggedIn} />} />
         <Route path="/login" element={<LoginPage setUserId={setUserId} setUsername={setUsername} setLoggedIn={setLoggedIn} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} setLoading={setLoading} />} />
         <Route path="/register" element={<RegisterPage setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} setLoading={setLoading} />} />
 
@@ -41,7 +43,7 @@ function App() {
           <Route path="/messages" element={<MessagePage userId={userId} setUserId={setUserId} username={username} setUsername={setUsername} setLoggedIn={setLoggedIn} setOpenSnackbar={setOpenSnackbar} setSnackbarMessage={setSnackbarMessage} setLoading={setLoading} />} />
         </Route>
 
-        <Route path="*" element={<Navigate to={loggedIn ? "/messages" : "/login"} replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
