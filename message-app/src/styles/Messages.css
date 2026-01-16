@@ -48,6 +48,24 @@
     scroll-behavior: smooth;
 }
 
+.no-contact-selected {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    color: var(--muted);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    text-align: center;
+    padding: 24px;
+}
+
+.no-contact-selected p {
+    margin: 0;
+}
+
 /* Sent Message */
 .sent.message {
     display: flex;
